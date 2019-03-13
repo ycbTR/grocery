@@ -1,0 +1,7 @@
+Kartınızı okutunuz
+
+<%= form_tag complete_orders_path, data: {method: :post} do %>
+    <%= text_field_tag :card, params[:card] %>
+    <%= submit_tag 'Öde' %>
+    <%= link_to 'Vazgeç', root_path  %>
+<% end %>

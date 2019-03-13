@@ -1,0 +1,38 @@
+
+<div class="col-lg-8">
+
+  <ul class="productList">
+    <% @products.each do |product| %>
+        <li onclick="$(this).find('form').trigger('submit');">
+          <div class="productItem" data-id="<%= product.id %>">
+            <%= form_tag populate_orders_path, data: {method: :post, remote: true} do %>
+                <%= product.name %>
+                ₺<%= product.price %>
+                <%= hidden_field_tag :product_id, product.id %>
+            <% end %>
+          </div>
+        </li>
+    <% end %>
+  </ul>
+
+</div>
+<div class="col-lg-4">
+<%= render partial: 'orders/cart' %>
+</div><!--/span-->
+
+
+<style>
+  .productList {
+
+  }
+
+  .productList li {
+    cursor: pointer;
+    list-style: none;
+    float: left;
+    width: 150px;
+    height: 150px;
+    background: #f5f5f5;
+    margin: 15px;
+  }
+</style>

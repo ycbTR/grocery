@@ -1,0 +1,37 @@
+<div id="cartArea" class="well sidebar-nav">
+  <% if @order.present? && @order.line_items.present? %>
+      <h3>Sipariş detayı</h3>
+
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Ürün</th>
+          <th>Tutar</th>
+          <th>Sil</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% @order.line_items.each do |li| %>
+            <tr>
+              <td><%= li.product.name %></td>
+              <td><b>₺<%= li.total %></b></td>
+              <td><%= link_to 'X', remove_item_orders_path(line_item_id: li.id), data: {method: :delete, remote: true}, class: 'btn btn-default btn-sm' %></td>
+            </tr>
+        <% end %>
+        <tr>
+          <td colspan="2"><b>Toplam</b></td>
+          <td colspan="1"><b>₺<%= @order.total %></b></td>
+        </tr>
+        </tbody>
+
+      </table>
+
+      <%= link_to 'Siparişi Tamamla', complete_orders_path, data: {method: :post}, class: 'btn btn-primary btn-block' %>
+
+
+  <% else %>
+      <h3>Ürün seçiniz</h3>
+  <% end %>
+</div><!--/.well -->
+
