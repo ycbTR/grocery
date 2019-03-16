@@ -1,4 +1,6 @@
-class OrdersController < ApplicationController
+class OrdersController < AdminController
+  skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item]
+
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
@@ -28,6 +30,13 @@ class OrdersController < ApplicationController
     current_order
     if params[:card].present?
       account = Account.where(card: params[:card]).first
+
+      # Admin can add expense to any account.
+      if account.admin? && params[:account_id].present?
+        admin_account = account
+        account = Account.where(id: params[:account_id]).first
+      end
+
       if account and account.enough_balance?(@order.total.to_f)
         begin
           Order.transaction do
@@ -35,7 +44,7 @@ class OrdersController < ApplicationController
             @order.completed_at = Time.now
             account.balance = account.balance - @order.total
             account.save!
-            account.account_activities.create!(amount: @order.total.to_f * -1, order_id: @order.id)
+            account.account_activities.create!(amount: @order.total.to_f * -1, order_id: @order.id, source: @order, admin_id: admin_account.try(:id))
             @order.save!
           end
           session[:order_id] = nil

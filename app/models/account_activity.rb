@@ -1,7 +1,7 @@
 class AccountActivity < ApplicationRecord
   belongs_to :account
   belongs_to :order, required: false
-
+  belongs_to :source, polymorphic: true, required: false
   after_save :update_account
 
 

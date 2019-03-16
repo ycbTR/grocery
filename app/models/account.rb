@@ -2,6 +2,7 @@ class Account < ApplicationRecord
 
   has_many :orders
   has_many :account_activities
+  has_many :managed_account_activities, class_name: 'AccountActivity', as: :source
 
   def enough_balance?(amount)
     self.balance.to_f >= amount.to_f

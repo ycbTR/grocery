@@ -1,23 +1,36 @@
-<%- model_class = Order -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+<div class="col-lg-12">
+  <table class="table table-striped table-bordered">
+
+    <tbody>
+    <tr>
+      <td colspan="2">
+        <b class="pull-left"><%= @order.account.try(:name) %></b>
+
+      <span class="pull-right"><%= @order.completed_at.to_s(:long) %></span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+    </tr>
+    <tr>
+      <td><b>Ürün</b></td>
+      <td class="text-right"><b>Fiyat</b></td>
+    </tr>
+
+    <% @order.line_items.each do |li| %>
+        <tr>
+          <td><%= li.product.try(:name) %></td>
+          <td class="text-right">₺<%= li.price %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td class="text-right"><b>Toplam:</b></td>
+      <td class="text-right"><b>₺<%= @order.total %></b></td>
+    </tr>
+
+    </tbody>
+  </table>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:account_id) %>:</strong></dt>
-  <dd><%= @order.account_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:total) %>:</strong></dt>
-  <dd><%= @order.total %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:completed_at) %>:</strong></dt>
-  <dd><%= @order.completed_at %></dd>
-</dl>
-
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              orders_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_order_path(@order), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              order_path(@order),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>

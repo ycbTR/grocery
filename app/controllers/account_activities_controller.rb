@@ -1,4 +1,4 @@
-class AccountActivitiesController < ApplicationController
+class AccountActivitiesController < AdminController
   before_action :set_account_activity, only: [:show, :edit, :update, :destroy]
 
   # GET /account_activities
@@ -25,7 +25,7 @@ class AccountActivitiesController < ApplicationController
   # POST /account_activities.json
   def create
     @account_activity = AccountActivity.new(account_activity_params)
-
+    @account_activity.source = Account.first
     respond_to do |format|
       if @account_activity.save
         format.html { redirect_to @account_activity, notice: 'Account activity was successfully created.' }

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   root controller: :home, action: :index
 
+  resource :home, controller: 'home' do
+    match :login, via: [:get, :post]
+    delete :logout
+    get :account_details
+  end
   resources :account_activities
   resources :line_items
   resources :orders do

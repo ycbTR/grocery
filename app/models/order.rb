@@ -1,8 +1,11 @@
 class Order < ApplicationRecord
   belongs_to :account, required: false
   has_many :line_items
-  has_many :account_activities
+  has_many :account_activities, as: :source
 
+  def name
+    self.id
+  end
 
   def update!
     self.total = self.line_items.reload.sum(:total)
