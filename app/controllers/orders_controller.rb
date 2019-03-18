@@ -48,7 +48,7 @@ class OrdersController < AdminController
             @order.save!
           end
           session[:order_id] = nil
-          flash[:success] = "Ödeme alındı: #{account.name} ₺#{@order.total}"
+          flash[:success] = "#{account.name} ₺#{@order.total} Ödeme alındı. Kalan bakiyeniz: ₺ #{account.balance}"
           redirect_to root_path
         rescue Exception => e
           # Stop listener
@@ -58,7 +58,7 @@ class OrdersController < AdminController
           #stop listener
         end
       else
-        flash[:error] = "Bakiye yetersiz"
+        flash[:error] = "Bakiye yetersiz. Bakiyeniz: ₺ #{account.try(:balance)}"
         redirect_to root_path
         # Stop listener
       end

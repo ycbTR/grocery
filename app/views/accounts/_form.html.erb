@@ -37,9 +37,16 @@
     <%=f.error_span(:balance) %>
   </div>
   <div class="form-group">
+    <%= f.label :credit_limit, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :credit_limit, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:credit_limit) %>
+  </div>
+  <div class="form-group">
     <%= f.label :admin, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :admin, :class => 'form-control' %>
+      <%= f.check_box :admin, :class => 'form-control' %>
     </div>
     <%=f.error_span(:admin) %>
   </div>

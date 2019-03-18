@@ -5,7 +5,7 @@ class Account < ApplicationRecord
   has_many :managed_account_activities, class_name: 'AccountActivity', as: :source
 
   def enough_balance?(amount)
-    self.balance.to_f >= amount.to_f
+    (self.balance.to_f + self.credit_limit.to_f) >= amount.to_f
   end
 
   def update_balance
