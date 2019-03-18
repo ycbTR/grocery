@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84837269-3298-460f-beed-888f32d386fb" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/grocery-rpi.iml" afterPath="$PROJECT_DIR$/.idea/grocery-rpi.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/boot.rb" afterPath="$PROJECT_DIR$/config/boot.rb" />
     </list>
     <ignored path="grocery-rpi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,9 +116,11 @@
       <file leaf-file-name="Gemfile" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="40" column="14" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="227">
+              <caret line="35" column="14" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#2384#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -910,12 +912,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552415322714</updated>
-      <workItem from="1552415335186" duration="10371000" />
+      <workItem from="1552415335186" duration="10936000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10371000" />
+    <option name="totallyTimeSpent" value="10936000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="752" extended-state="6" />
@@ -1253,9 +1255,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="40" column="14" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="227">
+          <caret line="35" column="14" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#2384#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
