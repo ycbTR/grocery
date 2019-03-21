@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   root controller: :home, action: :index
 
   resource :home, controller: 'home' do
     match :login, via: [:get, :post]
     delete :logout
+    get :publish_number
+    get :read
     get :account_details
   end
   resources :account_activities

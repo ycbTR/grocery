@@ -1,0 +1,8 @@
+<% if @response.present? %>
+$("#card").val("<%= @response %>");
+<% if params[:auto_submit] %>
+$('form').submit();
+<% end %>
+<% else %>
+//window.location.href = '/';
+<% end %>

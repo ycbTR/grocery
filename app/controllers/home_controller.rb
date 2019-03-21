@@ -10,6 +10,29 @@ class HomeController < ApplicationController
     @account_activities = @current_account.account_activities
   end
 
+  def publish_number
+    ActionCable.server.broadcast 'rfid_read',
+                                 card: params[:card]
+    render text: 'ok'
+  end
+
+  def read
+    # r = ""
+    # `ssh pi@192.168.1.83 "sudo ./kill_reader.sh"`
+    # begin
+    #   status = Timeout::timeout(10) {
+    #     r = `ssh pi@192.168.1.83 "sudo python read.py > /dev/null &"`
+    #   }
+    # rescue
+    # end
+    # `ssh pi@192.168.1.83 "sudo ./kill_reader.sh"`
+    # @response = r.gsub(/[^\d]/, '')
+
+    `ssh pi@192.168.1.83 "sudo ./kill_reader.sh"`
+    r = `ssh pi@192.168.1.83 "sudo python read.py > /dev/null &"`
+
+  end
+
   def login
     unless request.get?
       if params[:card].present?

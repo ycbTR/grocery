@@ -16,4 +16,5 @@
 //= require twitter/bootstrap
 //= require activestorage
 //= require turbolinks
+//= require_tree ./channels
 //= require_tree .

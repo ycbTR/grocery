@@ -64,6 +64,7 @@ class OrdersController < AdminController
       end
     end
 
+    # r = `sudo python rfidreader.py`
   end
 
   # GET /orders/1
