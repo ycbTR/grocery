@@ -28,7 +28,7 @@ class HomeController < ApplicationController
     # `ssh pi@192.168.1.83 "sudo ./kill_reader.sh"`
     # @response = r.gsub(/[^\d]/, '')
 
-    `sudo readRfid.sh`
+    `sudo ./readRfid.sh`
   end
 
   def login
