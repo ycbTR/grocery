@@ -9,7 +9,11 @@
       <% end %>
   <% end %>
   <%= link_to 'Vazgeç', root_path, class: 'btn btn-default' %>
-  <%= link_to 'Yönetici Giriş', complete_orders_path(admin: 1), data: {method: :post}, class: '' %>
 </div>
 
 <%= render partial: '/shared/reader', locals: {auto_submit: true} %>
+
+
+
+
+<%= link_to 'Yönetici Giriş', complete_orders_path(admin: 1), data: {method: :post}, class: '' %>

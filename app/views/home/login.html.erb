@@ -1,6 +1,14 @@
-Kartınızı okutunuz
-<%= form_tag login_home_path, data: {method: :post} do %>
-    <%= text_field_tag :card, params[:card] %>
-    <%= submit_tag 'Giriş' %>
-    <%= link_to 'Vazgeç', root_path %>
-<% end %>
+<div class="well text-center">
+  <h1>  Kartınızı okutunuz </h1>
+  <%= form_tag login_home_path, data: {method: :post}, class: 'autosubmit' do %>
+      <%= image_tag 'rfid.png', width: 200 %>
+      <%= hidden_field_tag :card, params[:card], id: 'card' %>
+      <% if params[:admin] %>
+          <%= hidden_field_tag :admin, params[:admin] %>
+          <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)) %>
+      <% end %>
+  <% end %>
+  <%= link_to 'Vazgeç', root_path, class: 'btn btn-default' %>
+</div>
+
+<%= render partial: '/shared/reader', locals: {auto_submit: true} %>
