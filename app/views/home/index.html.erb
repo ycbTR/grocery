@@ -5,7 +5,7 @@
         <li onclick="$(this).find('form').trigger('submit');">
           <div class="productItem text-center" data-id="<%= product.id %>">
             <%= form_tag populate_orders_path, data: {method: :post, remote: true} do %>
-                <%= image_tag url_for(product.image), width: 148, height: 148 if product.image.attached? %>
+                <%= image_tag url_for(product.image), width: 100, height: 100 if product.image.attached? %>
                 <div class="productFooter">
                   <b><%= product.name %>
                     ₺<%= product.price %>
