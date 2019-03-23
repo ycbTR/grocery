@@ -32,7 +32,7 @@
   <div class="form-group">
     <%= f.label :account_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)) %>
+      <%= f.select :account_id, options_for_select(Account.pluck(:name, :id), selected: f.object.account_id) %>
     </div>
     <%=f.error_span(:account_id) %>
   </div>
