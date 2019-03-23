@@ -1,10 +1,10 @@
 class Order < ApplicationRecord
   belongs_to :account, required: false
   has_many :line_items
-  has_many :account_activities, as: :source
+  has_many :account_activities, as: :source, dependent: :destroy
 
   def name
-    self.id
+    "Sipariş ##{self.id}"
   end
 
   def update!

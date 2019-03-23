@@ -1,6 +1,10 @@
 <%- model_class = Account -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_account_path,
+              :class => 'btn btn-primary' %>
+  <div class="clearfix"></div>
 </div>
 <table class="table table-striped">
   <thead>
@@ -10,7 +14,7 @@
       <th><%= model_class.human_attribute_name(:card) %></th>
       <th><%= model_class.human_attribute_name(:balance) %></th>
       <th><%= model_class.human_attribute_name(:admin) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= t :created_at %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -24,6 +28,8 @@
         <td><%= account.admin %></td>
         <td><%=l account.created_at %></td>
         <td>
+          <%= link_to 'Bakiye Yükle',
+                      new_account_activity_path(account_id: account.id), :class => 'btn btn-primary btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -36,7 +42,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_account_path,
-            :class => 'btn btn-primary' %>

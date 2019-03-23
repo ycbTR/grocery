@@ -18,7 +18,7 @@
   <div class="form-group">
     <%= f.label :amount, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :amount, :class => 'form-control' %>
+      <%= f.text_field :amount, :class => 'form-control', placeholder: 'Örnek: 15.50' %>
     </div>
     <%=f.error_span(:amount) %>
   </div>
@@ -32,7 +32,7 @@
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= f.submit 'Bakiye Yükle', :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 account_activities_path, :class => 'btn btn-default' %>
     </div>

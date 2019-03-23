@@ -4,7 +4,7 @@ class AccountActivitiesController < AdminController
   # GET /account_activities
   # GET /account_activities.json
   def index
-    @account_activities = AccountActivity.all
+    @account_activities = AccountActivity.page(params[:page]).order(:created_at => :desc)
   end
 
   # GET /account_activities/1
@@ -15,6 +15,7 @@ class AccountActivitiesController < AdminController
   # GET /account_activities/new
   def new
     @account_activity = AccountActivity.new
+    @account_activity.account_id = params[:account_id]
   end
 
   # GET /account_activities/1/edit
@@ -25,10 +26,11 @@ class AccountActivitiesController < AdminController
   # POST /account_activities.json
   def create
     @account_activity = AccountActivity.new(account_activity_params)
-    @account_activity.source = Account.first
+    @account_activity.source = @current_account
+    @account_activity.admin_id = @current_account.id
     respond_to do |format|
       if @account_activity.save
-        format.html { redirect_to @account_activity, notice: 'Account activity was successfully created.' }
+        format.html { redirect_to account_path(@account_activity.account_id), notice: 'Account activity was successfully created.' }
         format.json { render :show, status: :created, location: @account_activity }
       else
         format.html { render :new }

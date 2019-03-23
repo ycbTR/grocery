@@ -2,18 +2,17 @@ class HomeController < ApplicationController
   before_action :account_required!, only: [:account_details]
 
   def index
-    @products = Product.all
+    @products = Product.where(:deleted_at => nil).order('position')
     @order = current_order(false)
   end
 
   def account_details
     if @current_account && @current_account.admin? && params[:id].present?
       @account = Account.find(params[:id])
-      @account_activities = @account.account_activities
     else
       @account = @current_account
-      @account_activities = @current_account.account_activities
     end
+    @account_activities = @account.account_activities.page(params[:page]).order(:created_at => :desc)
   end
 
   def publish_number

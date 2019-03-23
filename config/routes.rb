@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     end
   end
   resources :accounts
-  resources :products
+  resources :products do
+    collection do
+      post :update_positions
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

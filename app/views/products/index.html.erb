@@ -1,23 +1,27 @@
 <%- model_class = Product -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_product_path,
+              :class => 'btn btn-primary' %>
+<div class="clearfix"></div>
 </div>
-<table class="table table-striped">
+<table class="table table-striped sortable" data-sortable-link="<%= update_positions_products_path %>">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
       <th><%= model_class.human_attribute_name(:deleted_at) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= t :created_at %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="table-body" class="" >
     <% @products.each do |product| %>
-      <tr>
+      <tr id="<%= dom_id product %>" class="item">
         <td><%= link_to product.id, product_path(product) %></td>
-        <td><%= product.name %></td>
+        <td class="handle"><%= product.name %></td>
         <td><%= product.price %></td>
         <td><%= product.deleted_at %></td>
         <td><%=l product.created_at %></td>
@@ -34,7 +38,4 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_product_path,
-            :class => 'btn btn-primary' %>
+<%= paginate @products,:theme => 'twitter-bootstrap-3' %>

@@ -108,6 +108,7 @@ html, body {
 
 .page-header {
     margin: 0px;
+    margin-bottom: 15px;
 }
 
 .productList {
@@ -125,9 +126,8 @@ html, body {
     margin: 15px;
 }
 
-
 .loader-big {
-    background: rgba(202, 202, 202, 0.8);
+    background: rgba(32, 30, 30, 0.8);
     position: fixed;
     top: 0;
     left: 0;
@@ -154,4 +154,20 @@ html, body {
 .load-content svg {
     fill: white;
     stroke: white;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.page-header h1 {
+    float: left;
+}
+
+.page-header .btn-primary {
+    float: right;
+    margin-top: 25px;
+}
+.handle {
+    cursor: pointer;
 }

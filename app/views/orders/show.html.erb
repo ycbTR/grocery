@@ -1,5 +1,6 @@
 <div class="page-header">
   <h1>Sipariş detayı</h1>
+  <div class="clearfix"></div>
 </div>
 
 <div class="col-lg-12">
@@ -10,7 +11,7 @@
       <td colspan="2">
         <b class="pull-left"><%= @order.account.try(:name) %></b>
 
-      <span class="pull-right"><%= @order.completed_at.to_s(:long) %></span>
+      <span class="pull-right"><%= l @order.completed_at, format: :long %></span>
       </td>
     </tr>
     <tr>
@@ -38,3 +39,9 @@
     </tbody>
   </table>
 </div>
+
+
+
+<%= link_to 'Geri',
+            :back,
+            :class => 'btn btn-default' %>

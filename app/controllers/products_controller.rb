@@ -4,9 +4,15 @@ class ProductsController < AdminController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.where(deleted_at: nil).page(params[:page]).order(:position)
   end
 
+
+  def update_positions
+    params[:positions].each do |id, index|
+      Product.where(id: id).update_all(:position => index)
+    end
+  end
   # GET /products/1
   # GET /products/1.json
   def show
@@ -69,6 +75,6 @@ class ProductsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :price, :deleted_at, :image)
+      params.require(:product).permit(:name, :price, :deleted_at, :image, :position)
     end
 end

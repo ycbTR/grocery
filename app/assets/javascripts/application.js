@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require jquery-ui/widgets/sortable
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require activestorage
@@ -129,3 +130,30 @@ function redirect_to_target_and_show_loader(target) {
     }, 1);
 }
 
+
+$('table.sortable').ready(function () {
+    $('table.sortable tbody').sortable(
+        {
+            handle: '.handle',
+            update: function (event, ui) {
+                // $('.loader-big').show();
+                positions = {};
+                $.each($('table.sortable tbody tr'), function (position, obj) {
+                    reg = /(\w+_?)+_(\d+)/;
+                    parts = reg.exec($(obj).attr('id'));
+                    if (parts) {
+                        positions['positions[' + parts[2] + ']'] = position;
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'script',
+                    url: $(ui.item).closest("table.sortable").data("sortable-link"),
+                    data: positions,
+                    success: function (data) {
+                        $('.loader-big').hide();
+                    }
+                });
+            }
+        });
+});

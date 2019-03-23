@@ -1,28 +1,31 @@
 <%- model_class = AccountActivity -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <%= link_to 'Bakiye Yükle',
+              new_account_activity_path,
+              :class => 'btn btn-primary pull-right' %>
+  <div class="clearfix"></div>
 </div>
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th><%= 'Kaynak' %></th>
-      <th><%= model_class.human_attribute_name(:amount) %></th>
-      <th><%= model_class.human_attribute_name(:account_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-    </tr>
+  <tr>
+    <th><%= 'Kaynak' %></th>
+    <th><%= model_class.human_attribute_name(:amount) %></th>
+    <th>Hesap</th>
+    <th><%= t :created_at %></th>
+    <th><%= 'Yönetici' %></th>
+  </tr>
   </thead>
   <tbody>
-    <% @account_activities.each do |account_activity| %>
+  <% @account_activities.each do |account_activity| %>
       <tr>
         <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source)) rescue '' %></td>
         <td><%= account_activity.amount %></td>
         <td><%= account_activity.account.try(:name) %></td>
-        <td><%=l account_activity.created_at %></td>
+        <td><%= l account_activity.created_at %></td>
+        <td><%= account_activity.admin.try(:name) || '-' %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_account_activity_path,
-            :class => 'btn btn-primary' %>
+<%= paginate @account_activities,:theme => 'twitter-bootstrap-3' %>

@@ -6,8 +6,7 @@ class AdminController < ApplicationController
     if @current_account && @current_account.admin?
       # Valid admin login
     else
-      flash[:warning] = "Yetkiniz yok."
-      redirect_to root_path and return
+      redirect_to account_details_home_path and return
     end
     @logged_in = true
   end

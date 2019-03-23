@@ -1,8 +1,8 @@
-<h2><%= @account.name %> <small class="pull-right">₺<%= @account.balance %></small></h2>
+<h2><%= @account.name %> <small class="pull-right">₺<%= @account.balance.to_f %></small></h2>
 
 <%- model_class = AccountActivity -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -10,7 +10,8 @@
     <th><%= 'Kaynak' %></th>
     <th><%= model_class.human_attribute_name(:amount) %></th>
     <th><%= model_class.human_attribute_name(:account_id) %></th>
-    <th><%= model_class.human_attribute_name(:created_at) %></th>
+    <th><%= t :created_at %></th>
+    <th>Yönetici</th>
   </tr>
   </thead>
   <tbody>
@@ -20,7 +21,9 @@
         <td><%= account_activity.amount %></td>
         <td><%= account_activity.account.try(:name) %></td>
         <td><%=l account_activity.created_at %></td>
+        <td><%= account_activity.admin.try(:name) || '-' %></td>
       </tr>
   <% end %>
   </tbody>
 </table>
+<%= paginate @account_activities,:theme => 'twitter-bootstrap-3' %>
