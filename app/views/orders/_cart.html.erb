@@ -27,10 +27,28 @@
           <b class="pull-left f-s-16">Toplam</b>
           <b class="pull-right f-s-16">₺<%= @order.total %></b>
         </div>
-        <%= link_to 'Ödeme Yap', complete_orders_path, data: {method: :post}, class: 'btn btn-primary btn-block btn-flat btn-lg' %>
+        <%= form_tag complete_orders_path, method: :post do %>
+            <%= submit_tag 'Ödeme Yap', class: 'btn btn-primary btn-block btn-flat btn-lg' %>
+        <% end %>
+
       </div>
   <% else %>
       <h3>Sepetiniz boş</h3>
   <% end %>
 </div><!--/.well -->
+
+<script type="text/javascript" charset="utf-8">
+hide_loading();
+
+$("a[data-remote='true']").on('click', function (e) {
+  get_loading_container();
+  show_loading();
+});
+
+$('form').on('submit', function () {
+  get_loading_container();
+  show_loading();
+});
+
+</script>
 
