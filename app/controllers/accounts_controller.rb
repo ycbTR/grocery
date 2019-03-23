@@ -10,6 +10,7 @@ class AccountsController < AdminController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
+    redirect_to account_details_home_path(id: @account) and return
   end
 
   # GET /accounts/new

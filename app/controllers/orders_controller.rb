@@ -1,6 +1,6 @@
 class OrdersController < AdminController
-  skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item]
-
+  skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item, :show]
+  before_action :account_required!, only: [:show]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
@@ -30,7 +30,10 @@ class OrdersController < AdminController
     current_order
     if params[:card].present?
       account = Account.where(card: params[:card]).first
-
+      if account.blank?
+        flash['warning'] = 'Kart tanımlanamadı...'
+        redirect_to root_path and return
+      end
       # Admin can add expense to any account.
       if account.admin? && params[:account_id].present?
         admin_account = account
@@ -42,7 +45,7 @@ class OrdersController < AdminController
           Order.transaction do
             @order.account = account
             @order.completed_at = Time.now
-            account.balance = account.balance - @order.total
+            account.balance = account.balance.to_f - @order.total.to_f
             account.save!
             account.account_activities.create!(amount: @order.total.to_f * -1, order_id: @order.id, source: @order, admin_id: admin_account.try(:id))
             @order.save!
@@ -70,6 +73,10 @@ class OrdersController < AdminController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    unless @current_account.admin?
+      @order = @current_account.orders.where(id: params[:id]).first
+      redirect_to root_path and return if @order.blank?
+    end
   end
 
   # GET /orders/new

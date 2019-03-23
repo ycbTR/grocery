@@ -13,3 +13,88 @@
  *= require_tree .
  *= require_self
  */
+
+html, body { height:100%;  background: #fafafa; }
+
+.mainContainer, .container {
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    background: #fafafa;
+}
+
+.container {
+    overflow: scroll;
+}
+.footer {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    bottom: 0px;
+    overflow: hidden;
+}
+
+.productArea {
+    position: fixed;
+    overflow:scroll;
+    left: 0px;
+    border-right: 1px solid #adabab;
+    border-bottom: 1px solid #adabab;
+    width: 75%;
+    height: calc(100% - 50px);
+    background-color: #f8f8f8;
+}
+
+#cartArea {
+    position: relative;
+    height: calc(100% - 10px);
+    /*box-shadow: inset 0px 1px 10px 0px grey;*/
+}
+
+#cartArea h3 {
+    margin: 10px;
+}
+
+#cartArea .scrollableArea {
+    box-shadow: inset 0px 1px 5px 0px grey;
+}
+
+.cartContainer {
+    position: fixed;
+    right: 0px;
+    width: 25%;
+    min-width:250px;
+    background-color: #fff;
+    height: calc(100% - 50px);
+    /*background: #cacaca;*/
+}
+
+.scrollableArea {
+    overflow-y: scroll;
+    height: calc(100vh - 180px);
+}
+
+.marB30 {
+    margin-bottom: 30px;
+}
+
+.cartAction {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.cartTotal {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.btn-flat {
+    border-radius: 0px !important;
+}
+.page-header {
+    margin:0px ;}

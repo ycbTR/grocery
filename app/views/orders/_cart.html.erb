@@ -1,37 +1,36 @@
-<div id="cartArea" class="well sidebar-nav">
+<div id="cartArea" class="">
   <% if @order.present? && @order.line_items.present? %>
       <h3>Sipariş detayı</h3>
+      <div class="scrollableArea marB30">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Ürün</th>
+            <th>Tutar</th>
+            <th>Sil</th>
+          </tr>
+          </thead>
+          <tbody>
 
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Ürün</th>
-          <th>Tutar</th>
-          <th>Sil</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <% @order.line_items.each do |li| %>
-            <tr>
-              <td><%= li.product.name %></td>
-              <td><b>₺<%= li.total %></b></td>
-              <td><%= link_to 'X', remove_item_orders_path(line_item_id: li.id), data: {method: :delete, remote: true}, class: 'btn btn-default btn-sm' %></td>
-            </tr>
-        <% end %>
-        <tr>
-          <td colspan="2"><b>Toplam</b></td>
-          <td colspan="1"><b>₺<%= @order.total %></b></td>
-        </tr>
-        </tbody>
-
-      </table>
-
-      <%= link_to 'Siparişi Tamamla', complete_orders_path, data: {method: :post}, class: 'btn btn-primary btn-block' %>
-
-
+          <% @order.line_items.each do |li| %>
+              <tr>
+                <td><%= li.product.name %></td>
+                <td><b>₺<%= li.total %></b></td>
+                <td><%= link_to 'X', remove_item_orders_path(line_item_id: li.id), data: {method: :delete, remote: true}, class: 'btn btn-default btn-sm btn-flat' %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="cartAction">
+        <div class="cartTotal">
+          <b class="pull-left">Toplam</b>
+          <b class="pull-right">₺<%= @order.total %></b>
+        </div>
+        <%= link_to 'Ödeme Yap', complete_orders_path, data: {method: :post}, class: 'btn btn-primary btn-block btn-flat btn-lg' %>
+      </div>
   <% else %>
-      <h3>Ürün seçiniz</h3>
+      <h3>Sepetiniz boş</h3>
   <% end %>
 </div><!--/.well -->
 

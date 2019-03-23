@@ -1,5 +1,5 @@
-<div class="well text-center">
-<h1>  Kartınızı okutunuz </h1>
+<div class="text-center">
+  <h1> Kartınızı okutunuz </h1>
   <%= form_tag complete_orders_path, data: {method: :post}, class: 'autosubmit' do %>
       <%= image_tag 'rfid.png', width: 200 %>
       <%= hidden_field_tag :card, params[:card], id: 'card' %>
@@ -9,11 +9,9 @@
       <% end %>
   <% end %>
   <%= link_to 'Vazgeç', root_path, class: 'btn btn-default' %>
+  <%= content_for :links do %>
+      <li><%= link_to 'Yönetici Giriş', complete_orders_path(admin: 1), data: {method: :post}, class: '' %></li>
+  <% end %>
 </div>
 
 <%= render partial: '/shared/reader', locals: {auto_submit: true} %>
-
-
-
-
-<%= link_to 'Yönetici Giriş', complete_orders_path(admin: 1), data: {method: :post}, class: '' %>

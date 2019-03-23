@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
       flash[:warning] = 'Giriş yapınız'
       redirect_to root_path and return
     end
+    @logged_in = true
   end
 
   def set_current_account

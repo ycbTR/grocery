@@ -18,3 +18,7 @@
 //= require turbolinks
 //= require_tree ./channels
 //= require_tree .
+
+setInterval(function(){
+    $('.alert').fadeOut();
+}, 3000) ;
