@@ -68,4 +68,3 @@ gem 'rb-readline'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'jquery-ui-rails'
-app
