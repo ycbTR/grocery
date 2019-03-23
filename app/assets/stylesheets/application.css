@@ -14,7 +14,10 @@
  *= require_self
  */
 
-html, body { height:100%;  background: #fafafa; }
+html, body {
+    height: 100%;
+    background: #fafafa;
+}
 
 .mainContainer, .container {
     overflow: hidden;
@@ -26,6 +29,7 @@ html, body { height:100%;  background: #fafafa; }
 .container {
     overflow: scroll;
 }
+
 .footer {
     position: absolute;
     width: 100%;
@@ -36,7 +40,7 @@ html, body { height:100%;  background: #fafafa; }
 
 .productArea {
     position: fixed;
-    overflow:scroll;
+    overflow: scroll;
     left: 0px;
     border-right: 1px solid #adabab;
     border-bottom: 1px solid #adabab;
@@ -63,7 +67,7 @@ html, body { height:100%;  background: #fafafa; }
     position: fixed;
     right: 0px;
     width: 25%;
-    min-width:250px;
+    min-width: 250px;
     background-color: #fff;
     height: calc(100% - 50px);
     /*background: #cacaca;*/
@@ -71,7 +75,11 @@ html, body { height:100%;  background: #fafafa; }
 
 .scrollableArea {
     overflow-y: scroll;
-    height: calc(100vh - 180px);
+    height: calc(100vh - 185px);
+}
+
+.f-s-16 {
+    font-size: 16px;
 }
 
 .marB30 {
@@ -96,5 +104,22 @@ html, body { height:100%;  background: #fafafa; }
 .btn-flat {
     border-radius: 0px !important;
 }
+
 .page-header {
-    margin:0px ;}
+    margin: 0px;
+}
+
+.productList {
+
+}
+
+.productList li {
+    cursor: pointer;
+    list-style: none;
+    float: left;
+    border: 1px solid #e66d11;
+    width: 150px;
+    height: 175px;
+    background: #f5f5f5;
+    margin: 15px;
+}

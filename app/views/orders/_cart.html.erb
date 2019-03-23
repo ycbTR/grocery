@@ -24,8 +24,8 @@
       </div>
       <div class="cartAction">
         <div class="cartTotal">
-          <b class="pull-left">Toplam</b>
-          <b class="pull-right">₺<%= @order.total %></b>
+          <b class="pull-left f-s-16">Toplam</b>
+          <b class="pull-right f-s-16">₺<%= @order.total %></b>
         </div>
         <%= link_to 'Ödeme Yap', complete_orders_path, data: {method: :post}, class: 'btn btn-primary btn-block btn-flat btn-lg' %>
       </div>

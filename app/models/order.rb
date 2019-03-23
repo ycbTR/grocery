@@ -18,4 +18,11 @@ class Order < ApplicationRecord
     li.save
   end
 
+  def order_display_text
+    line_items.group(:product_id).count.collect do |pid, count|
+      product = Product.find(pid)
+      "#{count} #{product.name}"
+    end.to_sentence
+  end
+
 end
