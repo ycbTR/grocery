@@ -127,7 +127,7 @@ html, body {
 
 
 .loader-big {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(202, 202, 202, 0.8);
     position: fixed;
     top: 0;
     left: 0;
