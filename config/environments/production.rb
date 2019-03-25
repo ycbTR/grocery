@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_cable.url = "ws://127.0.0.1:3000/cable"
 
   # Code is not reloaded between requests.
   config.cache_classes = true
