@@ -1,6 +1,8 @@
 <div id="cartArea" class="">
   <% if @order.present? && @order.line_items.present? %>
-      <h3>Sipariş detayı</h3>
+      <h3>Sipariş detayı <small class="pull-right">
+        <%= link_to 'Temizle', remove_item_orders_path(empty: 1), data: {method: :delete, remote: true}, class: 'btn btn-default btn-sm btn-flat' %>
+      </small></h3>
       <div class="scrollableArea marB30">
         <table class="table table-bordered">
           <thead>

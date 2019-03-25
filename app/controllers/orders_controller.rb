@@ -16,7 +16,11 @@ class OrdersController < AdminController
 
   def remove_item
     @order = current_order
-    @order.line_items.where(id: params[:line_item_id]).destroy_all
+    if params[:empty]
+      @order.line_items.destroy_all
+    else
+      @order.line_items.where(id: params[:line_item_id]).destroy_all
+    end
     @order.update!
     render :populate
   end
