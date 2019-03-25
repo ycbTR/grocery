@@ -13,7 +13,7 @@ Account.create(name: 'Yönetici#2', card: 922778148556, admin: true, credit_limi
 Account.create(name: 'Yönetici#3', card: 170679784199, admin: true, credit_limit: 100)
 
 p = Product.create(name: 'Çay', price: 1)
-p.image.attach(io: File.open("#{Rails.root}/app/assets/images/cay.jpeg"), filename: 'cay.jpeg')
+p.image.attach(io: File.open("#{Rails.root}/app/assets/images/cay.png"), filename: 'cay.png')
 
 p = Product.create(name: 'Büyük Çay', price: 2)
 p.image.attach(io: File.open("#{Rails.root}/app/assets/images/buyuk-cay.jpeg"), filename: 'buyuk-cay.jpeg')
@@ -58,7 +58,7 @@ p = Product.create(name: 'Bitki çayı', price: 2)
 p.image.attach(io: File.open("#{Rails.root}/app/assets/images/bitkicayi.jpg"), filename: 'bitkicayi.jpg')
 
 p = Product.create(name: 'Efes Malt', price: 12)
-p.image.attach(io: File.open("#{Rails.root}/app/assets/images/efesmalt.jpeg"), filename: 'efesmalt.jpeg')
+p.image.attach(io: File.open("#{Rails.root}/app/assets/images/efesmalt.jpg"), filename: 'efesmalt.jpg')
 
 p = Product.create(name: 'Efes', price: 12)
 p.image.attach(io: File.open("#{Rails.root}/app/assets/images/bira.jpg"), filename: 'bira.jpg')
