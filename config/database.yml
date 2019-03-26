@@ -27,6 +27,6 @@ production:
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: grocery_production
-  username: grocery_production
+  database: d4qhvqf5o8tjhn
+  username: <%= ENV['GROCERY_DATABASE_USERNAME'] %>
   password: <%= ENV['GROCERY_DATABASE_PASSWORD'] %>
