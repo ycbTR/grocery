@@ -1,6 +1,6 @@
 <div class="text-center">
   <h1> Ödemeyi tamamlamak için kartınızı okutunuz
-    <br> <small> <%= @order.order_display_text %>, <br> <b>Toplam: ₺<%= @order.total %></b> </small> </h1>
+    <br> <small> <%= @order.order_display_text %> <br> <b>Toplam: ₺<%= @order.total %></b> </small> </h1>
   <%= form_tag complete_orders_path, data: {method: :post}, class: 'autosubmit' do %>
       <%= image_tag 'rfid.png', width: 200 %>
       <%= hidden_field_tag :card, params[:card], id: 'card' %>

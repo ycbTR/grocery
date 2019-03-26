@@ -47,7 +47,7 @@ html, body {
     border-bottom: 1px solid #adabab;
     width: 75%;
     height: calc(100% - 50px);
-    background-color: #f8f8f8;
+    background-color: #fafafa;
 }
 
 #cartArea {
@@ -94,12 +94,18 @@ html, body {
 }
 
 .cartTotal {
+    font-family: monospace;
     display: block;
     overflow: hidden;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    /*margin-bottom: 10px;*/
+    /*margin-top: 10px;*/
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+    background: black;
+    height: 44px;
+    margin: 0px;
+    padding: 10px;
+    color: #00f300;
 }
 
 .btn-flat {
@@ -176,3 +182,4 @@ html, body {
 .handle {
     cursor: pointer;
 }
+
