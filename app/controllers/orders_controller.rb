@@ -6,7 +6,7 @@ class OrdersController < AdminController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.where('completed_at').page(params[:page]).order(:completed_at => :desc)
+    @orders = Order.where('completed_at IS NOT NULL').page(params[:page]).order(:completed_at => :desc)
   end
 
   def populate
