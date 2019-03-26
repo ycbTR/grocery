@@ -1,6 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_cable.url = "ws://127.0.0.1:3000/cable"
+
+  config.action_cable.url = "wss://izmirmk.herokuapp.com/cable"
+
+  config.web_socket_server_url = "wss://izmirmk.herokuapp.com/cable"
+
+  config.action_cable.allowed_request_origins = ['https://izmirmk.herokuapp.com', 'http://izmirmk.herokuapp.com']
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
