@@ -181,8 +181,13 @@ tr:
         other: "%{count} hata oluştuğu için %{model} kaydedilemedi"
   helpers:
     titles:
-      new: Yeni %{model}
-      edit: Düzenle
+    new: Yeni %{model}
+    edit: Düzenle
+    page_entries_info:
+      more_pages:
+        display_entries: "%{first} - %{last} Toplam: <b>%{total}</b>"
+      one_page:
+        display_entries: "Toplam: <b>%{count}</b>"
     actions: İşlemler
     links:
       edit: Düzenle
@@ -326,3 +331,4 @@ tr:
   price: Fiyat
   total: Toplam
   product_id: 'Ürün #'
+

@@ -2,13 +2,46 @@ class Order < ApplicationRecord
   belongs_to :account, required: false
   has_many :line_items
   has_many :account_activities, as: :source, dependent: :destroy
+  after_destroy :update_account
+
+  def self.not_canceled
+    where(state: 'completed')
+  end
+
+  def update_account
+    refund_total
+    self.account.update_balance
+  end
+
+  def refund_total
+    account.
+        account_activities.
+        create!(
+            amount: self.total.to_f,
+            order_id: self.id,
+            source: self,
+            admin_id: Account.current.try(:id))
+  end
 
   def name
     "Sipariş ##{self.id}"
   end
 
+  def cancel!
+    self.state = 'canceled'
+    self.canceled_by = Account.current.try(:id)
+    self.update!
+    self.update_account # Refunds
+    self.line_items.update_all(state: 'canceled')
+    self.update!
+  end
+
+  def canceled?
+    self.state == 'canceled'
+  end
+
   def update!
-    self.total = self.line_items.reload.sum(:total)
+    self.total = self.line_items.not_canceled.sum(:total)
     self.save
   end
 

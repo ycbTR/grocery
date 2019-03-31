@@ -1,37 +1,55 @@
 <%- model_class = Order -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
+
+
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:account_id) %></th>
-      <th><%= model_class.human_attribute_name(:total) %></th>
-      <th><%= t :completed_at %></th>
-      <th><%= t :created_at %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
+  <tr>
+    <th colspan="5">
+      <%= search_form_for @q do |f| %>
+          <%= f.search_field :account_name_cont, placeholder: 'İsim' %>
+          <%= f.search_field :completed_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off' %>
+          <%= f.select :state_cont, options_for_select([['Tümü', '-1'], ['Tamamlanmış', 'completed'], ['İptal', 'canceled'] ], selected: params[:q][:state_cont]) %>
+          <%= f.submit %>
+      <% end %>
+      <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!))   do %>
+                                           Excel
+      <% end %>
+    </th>
+  </tr>
+  <tr>
+    <th><%= model_class.human_attribute_name(:id) %></th>
+    <th><%= model_class.human_attribute_name(:account_id) %></th>
+    <th><%= model_class.human_attribute_name(:total) %></th>
+    <th><%= t :completed_at %></th>
+    <th><%= t :created_at %></th>
+    <th><%= t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
   </thead>
   <tbody>
-    <% @orders.each do |order| %>
+  <% @orders.each do |order| %>
       <tr>
-        <td><%= link_to order.id, order_path(order) %></td>
+        <td><%= link_to order.id, order_path(order) %>
+          <% if order.canceled? %>
+              <span class="label label-danger">İptal</span>
+        <% else %>
+              <span class="label label-success">Tamamlanmış</span>
+          <% end %>
+        </td>
         <td><%= order.account.try(:name) %></td>
         <td>₺<%= order.total %></td>
-        <td><%=l order.completed_at %></td>
-        <td><%=l order.created_at %></td>
+        <td><%= l order.completed_at %></td>
+        <td><%= l order.created_at %></td>
         <td>
           <%= link_to 'Detay',
-                      order_path(order), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      order_path(order),
-                      :method => :delete,
-                      :data => { :confirm => 'Bakiye geri yüklenecek. Onaylıyor musunuz?' },
-                      :class => 'btn btn-xs btn-danger' %>
+                      order_path(order, return_to: orders_path), :class => 'btn btn-default btn-xs' %>
         </td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 <%= paginate @orders, :theme => 'twitter-bootstrap-3' %>
+<br>
+<%= page_entries_info @orders %>

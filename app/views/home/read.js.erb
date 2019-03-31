@@ -1,6 +1,7 @@
 <% if @response.present? %>
 $("#card").val("<%= @response %>");
 <% if params[:auto_submit] %>
+show_loading();
 $('form').submit();
 <% end %>
 <% else %>

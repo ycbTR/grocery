@@ -34,7 +34,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit 'Bakiye Yükle', :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                account_activities_path, :class => 'btn btn-default' %>
+                (params[:return_to] || account_activities_path), :class => 'btn btn-default' %>
     </div>
   </div>
 

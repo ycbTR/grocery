@@ -5,6 +5,7 @@ class AdminController < ApplicationController
   def authorize_admin!
     if @current_account && @current_account.admin?
       # Valid admin login
+      Account.current = @current_account
     else
       redirect_to account_details_home_path and return
     end

@@ -8,11 +8,17 @@
 </div>
 <table class="table table-striped sortable" data-sortable-link="<%= update_positions_products_path %>">
   <thead>
-    <tr>
+  <th colspan="5">
+    <%= search_form_for @q do |f| %>
+        <%= f.search_field :name_cont, placeholder: 'İsim' %>
+        <%= f.submit %>
+    <% end %>
+  </th>
+
+  <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
-      <th><%= model_class.human_attribute_name(:deleted_at) %></th>
       <th><%= t :created_at %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -23,7 +29,6 @@
         <td><%= link_to product.id, product_path(product) %></td>
         <td class="handle"><%= product.name %></td>
         <td><%= product.price %></td>
-        <td><%= product.deleted_at %></td>
         <td><%=l product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -39,3 +44,5 @@
   </tbody>
 </table>
 <%= paginate @products,:theme => 'twitter-bootstrap-3' %>
+<br>
+<%= page_entries_info @products %>

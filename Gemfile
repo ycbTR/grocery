@@ -72,3 +72,7 @@ gem 'rb-readline'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'jquery-ui-rails'
+
+gem 'ransack' , '2.1.1'
+
+gem 'bootstrap-datepicker-rails'

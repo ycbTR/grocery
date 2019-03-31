@@ -4,7 +4,22 @@ class AccountActivitiesController < AdminController
   # GET /account_activities
   # GET /account_activities.json
   def index
-    @account_activities = AccountActivity.page(params[:page]).order(:created_at => :desc)
+    params[:q] ||= {}
+    if params[:q][:created_at_cont].present?
+      @date = params[:q][:created_at_cont].to_date
+      params[:q][:created_at_gteq] = @date.beginning_of_day
+      params[:q][:created_at_lteq] = @date.end_of_day
+      params[:q].delete :created_at_cont
+    end
+
+    @q = AccountActivity.ransack(params[:q])
+    if request.format.xls?
+      filename = "Hesap_Hareketleri_#{I18n.localize(Time.current)}.xls"
+      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+      @account_activities = @q.result(distinct: true).order(:created_at => :desc)
+    else
+      @account_activities = @q.result(distinct: true).page(params[:page]).order(:created_at => :desc)
+    end
   end
 
   # GET /account_activities/1
@@ -64,13 +79,13 @@ class AccountActivitiesController < AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account_activity
-      @account_activity = AccountActivity.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_account_activity
+    @account_activity = AccountActivity.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def account_activity_params
-      params.require(:account_activity).permit(:order_id, :amount, :account_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def account_activity_params
+    params.require(:account_activity).permit(:order_id, :amount, :account_id)
+  end
 end

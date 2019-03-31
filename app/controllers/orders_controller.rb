@@ -1,12 +1,36 @@
 class OrdersController < AdminController
   skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item, :show]
   before_action :account_required!, only: [:show]
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :cancel]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.where('completed_at IS NOT NULL').page(params[:page]).order(:completed_at => :desc)
+    params[:q] ||= {}
+    unless params[:all]
+      params[:q][:state_cont] ||= 'completed'
+    end
+
+    if params[:q][:completed_at_cont].present?
+      @date = params[:q][:completed_at_cont].to_date
+      params[:q][:completed_at_gteq] = @date.beginning_of_day
+      params[:q][:completed_at_lteq] = @date.end_of_day
+      params[:q].delete :completed_at_cont
+    end
+
+    if params[:q][:state_cont] == "-1"
+      params[:all] = true
+      params[:q].delete :state_cont
+    end
+
+    @q = Order.ransack(params[:q])
+    if request.format.xls?
+      filename = "Siparişler_#{I18n.localize(Time.current)}.xls"
+      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+      @orders = @q.result(distinct: true).order(:completed_at => :desc)
+    else
+      @orders = @q.result(distinct: true).page(params[:page]).order(:completed_at => :desc)
+    end
   end
 
   def populate
@@ -49,6 +73,7 @@ class OrdersController < AdminController
           Order.transaction do
             @order.account = account
             @order.completed_at = Time.now
+            @order.state = 'completed'
             account.balance = account.balance.to_f - @order.total.to_f
             account.save!
             account.account_activities.create!(amount: @order.total.to_f * -1, order_id: @order.id, source: @order, admin_id: admin_account.try(:id))
@@ -120,6 +145,12 @@ class OrdersController < AdminController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def cancel
+    @order.cancel!
+    flash[:success] = "İptal edildi"
+    redirect_to order_path(@order)
   end
 
   # DELETE /orders/1

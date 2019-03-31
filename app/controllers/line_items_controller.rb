@@ -1,5 +1,5 @@
 class LineItemsController < AdminController
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_line_item, only: [:show, :edit, :update, :destroy, :cancel]
 
   # GET /line_items
   # GET /line_items.json
@@ -51,10 +51,19 @@ class LineItemsController < AdminController
     end
   end
 
+  def cancel
+    @line_item
+    @line_item.cancel!
+    flash[:success] = "İptal edildi"
+    redirect_to order_path(@line_item.order_id, return_to: orders_path)
+  end
+
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
+    # TODO Add state to line items - cancel - order cancel
     @line_item.destroy
+    @order.destroy if @order.reload.line_items.blank?
     respond_to do |format|
       format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
       format.json { head :no_content }

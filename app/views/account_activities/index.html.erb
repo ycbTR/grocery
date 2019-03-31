@@ -9,6 +9,15 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th colspan="5">
+      <%= search_form_for @q do |f| %>
+          <%= f.search_field :account_name_cont, placeholder: 'İsim' %>
+          <%= f.search_field :created_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off' %>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  <tr>
     <th><%= 'Kaynak' %></th>
     <th><%= model_class.human_attribute_name(:amount) %></th>
     <th>Hesap</th>
@@ -19,7 +28,7 @@
   <tbody>
   <% @account_activities.each do |account_activity| %>
       <tr>
-        <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source)) rescue '' %></td>
+        <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source.respond_to?(:to_link) ? account_activity.source.to_link : account_activity.source )) rescue '' %></td>
         <td><%= account_activity.amount %></td>
         <td><%= account_activity.account.try(:name) %></td>
         <td><%= l account_activity.created_at %></td>
@@ -29,3 +38,5 @@
   </tbody>
 </table>
 <%= paginate @account_activities,:theme => 'twitter-bootstrap-3' %>
+<br>
+<%= page_entries_info @account_activities %>

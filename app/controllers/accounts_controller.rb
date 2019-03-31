@@ -4,7 +4,15 @@ class AccountsController < AdminController
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.all
+    params[:q] ||= {}
+    @q = Account.ransack(params[:q])
+    if request.format.xls?
+      filename = "Hesaplar_#{I18n.localize(Time.current)}.xls"
+      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+      @accounts = @q.result(distinct: true)
+    else
+      @accounts = @q.result(distinct: true).page(params[:page])
+    end
   end
 
   # GET /accounts/1
@@ -63,13 +71,13 @@ class AccountsController < AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account
-      @account = Account.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_account
+    @account = Account.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def account_params
-      params.require(:account).permit(:name, :card, :balance, :credit_limit)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def account_params
+    params.require(:account).permit(:name, :card, :balance, :credit_limit)
+  end
 end

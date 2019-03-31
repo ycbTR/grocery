@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+  <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">İsim Soyisim</Data></Cell>
+        <Cell><Data ss:Type="String">Tutar</Data></Cell>
+        <Cell><Data ss:Type="String">Tarih</Data></Cell>
+        <Cell><Data ss:Type="String">Kaynak</Data></Cell>
+        <Cell><Data ss:Type="String">İşlemi yapan yönetici</Data></Cell>
+      </Row>
+      <% @account_activities.each do |account_activity| %>
+          <Row>
+            <Cell><Data ss:Type="Number"><%= account_activity.id %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= account_activity.account.try(:name) %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= account_activity.amount %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= account_activity.created_at %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= account_activity.source.try(:name) %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= account_activity.admin.try(:name) || '-' %></Data></Cell>
+          </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

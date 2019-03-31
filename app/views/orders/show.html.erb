@@ -9,9 +9,24 @@
     <tbody>
     <tr>
       <td colspan="2">
-        <b class="pull-left"><%= @order.account.try(:name) %></b>
+        <% if @order.canceled? %>
+            <small class="label label-danger"><%= Account.where(id: @order.canceled_by).pluck(:name).to_sentence %> Tarafından İptal Edilmiş</small>
+      <% else %>
 
-      <span class="pull-right"><%= l @order.completed_at, format: :long %></span>
+            <%= link_to 'İptal Et',
+                        cancel_order_path(@order),
+                        :method => :post,
+                        :data => {:confirm => 'Bakiye geri yüklenecek. Onaylıyor musunuz?'},
+                        :class => 'btn btn-xs btn-danger' %>
+
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <b class="pull-left"><%= @order.account.try(:name) %></b>
+        <span class="pull-right"><%= l @order.completed_at, format: :long %></span>
       </td>
     </tr>
     <tr>
@@ -24,7 +39,14 @@
 
     <% @order.line_items.each do |li| %>
         <tr>
-          <td><%= li.product.try(:name) %></td>
+          <td>
+            <%= li.product.try(:name) %>
+            <% unless li.canceled? %>
+                <%= link_to 'İptal Et', cancel_line_item_path(li), data: {method: :post, confirm: 'Emin misiniz?'}, class: 'btn btn-default btn-xs pull-right' if @current_account.admin? %>
+            <% else %>
+                <span class="label label-danger pull-right">İptal Edilmiş</span>
+            <% end %>
+          </td>
           <td class="text-right">₺<%= li.price %></td>
         </tr>
     <% end %>
@@ -43,5 +65,5 @@
 
 
 <%= link_to 'Geri',
-            :back,
+            (params[:return_to] || :back),
             :class => 'btn btn-default' %>

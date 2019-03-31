@@ -4,7 +4,10 @@ class ProductsController < AdminController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.where(deleted_at: nil).page(params[:page]).order(:position)
+    params[:q] ||= {}
+    params[:q][:deleted_at_null] ||= true
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true).page(params[:page]).order(:position)
   end
 
 

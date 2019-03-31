@@ -17,9 +17,9 @@
 //= require twitter/bootstrap
 //= require activestorage
 //= require turbolinks
+//= require bootstrap-datepicker
 //= require_tree ./channels
 //= require_tree .
-
 function get_loading_container() {
     loadingContainer = $('.loader-big', this.el);
 }
@@ -39,6 +39,7 @@ $(document).on("turbolinks:click", function () {
 });
 
 $(document).on("turbolinks:load", function () {
+    $.fn.datepicker.defaults['format'] = "dd/mm/yyyy";
     loadingContainer.hide();
 });
 
@@ -156,4 +157,8 @@ $('table.sortable').ready(function () {
                 });
             }
         });
+});
+$(function(){
+    $.fn.datepicker.defaults['format'] = "dd/mm/yyyy";
+
 });

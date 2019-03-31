@@ -11,12 +11,21 @@ Rails.application.routes.draw do
     get :account_details
   end
   resources :account_activities
-  resources :line_items
+
+  resources :line_items do
+    member do
+      post :cancel
+    end
+  end
+
   resources :orders do
     collection do
       post :complete
       post :populate
       delete :remove_item
+    end
+    member do
+      post :cancel
     end
   end
   resources :accounts

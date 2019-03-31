@@ -8,7 +8,14 @@
 </div>
 <table class="table table-striped">
   <thead>
-    <tr>
+  <th colspan="7">
+    <%= search_form_for @q do |f| %>
+        <%= f.search_field :name_cont, placeholder: 'İsim' %>
+        <%= f.submit %>
+    <% end %>
+  </th>
+
+  <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:card) %></th>
@@ -29,7 +36,7 @@
         <td><%=l account.created_at %></td>
         <td>
           <%= link_to 'Bakiye Yükle',
-                      new_account_activity_path(account_id: account.id), :class => 'btn btn-primary btn-xs' %>
+                      new_account_activity_path(account_id: account.id, return_to: accounts_path), :class => 'btn btn-primary btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -42,3 +49,6 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @accounts,:theme => 'twitter-bootstrap-3' %>
+<br>
+<%= page_entries_info @accounts %>
