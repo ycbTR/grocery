@@ -1,56 +1,68 @@
-<%= form_for @account, :html => { :class => "form-horizontal account" } do |f| %>
+<%= form_for @account, :html => {:class => "form-horizontal account"} do |f| %>
 
-  <% if @account.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h3>
+    <% if @account.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@account.errors.count, "error") %> prohibited this account from being
+              saved:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% @account.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name, t(:account_name), :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.text_field :name, :class => 'form-control' %>
       </div>
-      <div class="panel-body">
-        <ul>
-        <% @account.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
+      <%= f.error_span(:name) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :card, t(:card), :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.text_field :card, :class => 'form-control', id: 'card' %>
+      </div>
+      <%= f.error_span(:card) %>
+    </div>
+
+    <% if @account.new_record? %>
+        <div class="form-group">
+          <%= f.label :balance, 'Bakiye', :class => 'control-label col-lg-2' %>
+          <div class="col-lg-10">
+            <%= f.text_field :balance, :class => 'form-control', id: 'card' %>
+          </div>
+          <%= f.error_span(:balance) %>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :credit_limit, t(:credit_limit), :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.text_field :credit_limit, :class => 'form-control' %>
+      </div>
+      <%= f.error_span(:credit_limit) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :admin, t(:admin), :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.check_box :admin, :class => '' %>
+      </div>
+      <%= f.error_span(:admin) %>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit 'Kaydet', :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    accounts_path, :class => 'btn btn-default' %>
       </div>
     </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :name, t(:account_name), :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :name, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:name) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :card, t(:card), :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :card, :class => 'form-control', id: 'card' %>
-    </div>
-    <%=f.error_span(:card) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :credit_limit, t(:credit_limit),:class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :credit_limit, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:credit_limit) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :admin, t(:admin), :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.check_box :admin, :class => '' %>
-    </div>
-    <%=f.error_span(:admin) %>
-  </div>
-
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit 'Kaydet', :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                accounts_path, :class => 'btn btn-default' %>
-    </div>
-  </div>
 
 <% end %>
 

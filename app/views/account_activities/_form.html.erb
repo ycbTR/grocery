@@ -19,6 +19,7 @@
     <%= f.label :amount, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.text_field :amount, :class => 'form-control', placeholder: 'Örnek: 15.50' %>
+      <span>Bakiye silmek için negatif tutar girebilirsiniz.</span>
     </div>
     <%=f.error_span(:amount) %>
   </div>

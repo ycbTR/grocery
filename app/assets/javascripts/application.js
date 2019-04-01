@@ -16,7 +16,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require activestorage
-//= require turbolinks
 //= require bootstrap-datepicker
 //= require_tree ./channels
 //= require_tree .
@@ -34,11 +33,13 @@ setInterval(function () {
 }, 3000);
 
 $(document).on("turbolinks:click", function () {
+    get_loading_container();
     show_loading();
     $(".loader").show();
 });
 
 $(document).on("turbolinks:load", function () {
+    get_loading_container();
     $.fn.datepicker.defaults['format'] = "dd/mm/yyyy";
     loadingContainer.hide();
 });
@@ -64,22 +65,25 @@ $(function () {
     });
 });
 
-$("a[data-remote!='true'][data-fancybox-type!='iframe']").on('click', function (e) {
-    metaClick = e.metaKey || e.ctrlKey;
-    if (!metaClick && should_show_overlay($(this))) {
-        get_loading_container();
-        show_loading();
-    }
-});
-
-$("a[data-remote='true']").on('click', function (e) {
-        get_loading_container();
-        show_loading();
-});
 
 $(document).ready(function () {
     get_loading_container();
     loadingContainer.hide();
+
+    $("a[data-remote!='true'][data-fancybox-type!='iframe']").on('click', function (e) {
+        metaClick = e.metaKey || e.ctrlKey;
+        if (!metaClick && should_show_overlay($(this))) {
+            get_loading_container();
+            show_loading();
+        }
+    });
+
+    $("a[data-remote='true']").on('click', function (e) {
+        get_loading_container();
+        show_loading();
+    });
+
+
     $('#loaderMessage').html("");
 });
 
@@ -100,13 +104,14 @@ function show_loading() {
             clearInterval(reloadResourceInterval);
         loadingContainer.css({
             'opacity': '0',
-            'transition': 'transform 0.2s, opacity 0.2s',
+            'transition': 'transform 0.02s, opacity 0.02s',
             'transform': 'scale(1.4)',
             'display': 'block'
         });
         setTimeout(function () {
             loadingContainer.css({
                 'opacity': '1',
+                'display': 'block',
                 'transform': 'scale(1)'
             });
         }, 50);
