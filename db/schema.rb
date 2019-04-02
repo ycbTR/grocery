@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_191217) do
+ActiveRecord::Schema.define(version: 2019_04_02_200217) do
 
   create_table "account_activities", force: :cascade do |t|
     t.integer "order_id"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2019_04_02_191217) do
     t.string "source_type"
     t.integer "source_id"
     t.integer "admin_id"
+    t.index ["admin_id", "amount", "created_at"], name: "aa_i_2"
+    t.index ["source_type", "created_at", "amount"], name: "aa_i_1"
   end
 
   create_table "accounts", force: :cascade do |t|
@@ -33,6 +35,8 @@ ActiveRecord::Schema.define(version: 2019_04_02_191217) do
     t.decimal "credit_limit"
     t.datetime "deleted_at"
     t.boolean "cashier"
+    t.index ["deleted_at"], name: "acc_i_2"
+    t.index ["name"], name: "acc_i_1"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -66,6 +70,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_191217) do
     t.datetime "updated_at", null: false
     t.string "state"
     t.integer "canceled_by"
+    t.index ["state", "order_id"], name: "li_i_1"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -76,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_191217) do
     t.datetime "updated_at", null: false
     t.string "state"
     t.integer "canceled_by"
+    t.index ["state", "completed_at"], name: "o_i_1"
   end
 
   create_table "products", force: :cascade do |t|
@@ -85,6 +91,8 @@ ActiveRecord::Schema.define(version: 2019_04_02_191217) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.index ["deleted_at"], name: "pr_i_2"
+    t.index ["name"], name: "pr_i_1"
   end
 
 end
