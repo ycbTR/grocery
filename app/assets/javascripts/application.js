@@ -32,6 +32,10 @@ setInterval(function () {
     $('.alert').fadeOut();
 }, 3000);
 
+setInterval(function () {
+    hide_loading()
+}, 10000);
+
 $(document).on("turbolinks:click", function () {
     get_loading_container();
     show_loading();

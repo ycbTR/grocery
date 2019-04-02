@@ -13,7 +13,7 @@
         <%= f.search_field :name_cont, placeholder: 'İsim' %>
         <%= f.submit 'Ara' %>
     <% end %>
-    <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)) do %>
+    <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
         Excel'e aktar
     <% end %>
   </th>

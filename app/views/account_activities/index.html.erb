@@ -15,7 +15,7 @@
           <%= f.search_field :created_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off' %>
           <%= f.submit 'Ara' %>
       <% end %>
-      <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)) do %>
+      <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)),target: '_blank' do %>
           Excel'e aktar
       <% end %>
     </th>
