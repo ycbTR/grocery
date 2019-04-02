@@ -56,6 +56,9 @@ class OrdersController < AdminController
     # Decrease balances
     # Log request
     current_order
+
+    redirect_to root_path and return if @order.line_items.blank?
+
     if params[:card].present?
       account = Account.where(card: params[:card]).first
       if account.blank?

@@ -1,5 +1,12 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_account
+  rescue_from Exception, with: :rescued_request
+
+
+  def rescued_request
+    flash[:warning] = "Error occured"
+    redirect_to root_path and return
+  end
 
   def account_required!
     if @current_account.blank?
