@@ -9,6 +9,14 @@ class AccountActivity < ApplicationRecord
     self.account.update_balance
   end
 
+  def self.add_balance
+    where(source_type: 'Account')
+  end
+
+  def self.refund_balance
+    where(source_type: ['Order', 'LineItem'])
+  end
+
   def admin
     @admin ||= if admin_id.present?
                  Account.where(id: admin_id).first

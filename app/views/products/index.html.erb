@@ -28,7 +28,7 @@
       <tr id="<%= dom_id product %>" class="item">
         <td><%= link_to product.id, product_path(product) %></td>
         <td class="handle"><%= product.name %></td>
-        <td><%= product.price %></td>
+        <td>₺<%= product.price %></td>
         <td><%=l product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

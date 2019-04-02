@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Z Raporu</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"><%= l @start_time %> - <%= l @end_time %> saatleri arası</Data></Cell>
+      </Row>
+      <Row>
+      </Row>
+
+      <Row>
+        <Cell><Data ss:Type="String">Ürün</Data></Cell>
+        <Cell><Data ss:Type="String">Adet</Data></Cell>
+        <Cell><Data ss:Type="String">Tutar</Data></Cell>
+      </Row>
+
+      <% @product_report.each do |name, h| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= name %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= h[:count] %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= h[:total] %></Data></Cell>
+          </Row>
+      <% end %>
+      <Row>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">Sipariş Sayısı</Data></Cell>
+        <Cell><Data ss:Type="Number"><%= @orders.count %></Data></Cell>
+      </Row>
+
+      <Row>
+        <Cell><Data ss:Type="String">Toplam Sipariş Tutarı</Data></Cell>
+        <Cell><Data ss:Type="Number"><%= @total.to_f %></Data></Cell>
+      </Row>  <Row>
+        <Cell><Data ss:Type="String">Yüklenen Bakiye</Data></Cell>
+        <Cell><Data ss:Type="Number"><%= @balance_added.to_f %></Data></Cell>
+      </Row>
+
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+while true
+do
+usbName=$(ls /media/pi)
+
+echo $usbName
+mv ~/Downloads/*  "/media/pi/$usbName/"
+
+sleep 1
+
+done

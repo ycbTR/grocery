@@ -8,6 +8,10 @@ class Order < ApplicationRecord
     where(state: 'completed')
   end
 
+  def self.completed
+    where(state: 'completed')
+  end
+
   def update_account
     refund_total
     self.account.update_balance

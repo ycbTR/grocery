@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import RPi.GPIO as GPIO
+import signal
+import sys
+sys.path.append('/home/pi/MFRC522-python')
+import SimpleMFRC522
+import requests
+import time
+
+reader = SimpleMFRC522.SimpleMFRC522()
+continue_reading = True
+
+def end_read(signal,frame):
+	global continue_reading
+	print "Ctrl+C captured, ending read."
+	continue_reading = False
+	GPIO.cleanup()
+
+
+signal.signal(signal.SIGINT, end_read)
+
+while continue_reading:
+
+	#reader = SimpleMFRC522.SimpleMFRC522()
+
+#print("Hold a tag near the reader")
+
+	try:
+    		id, text = reader.read()
+ #   print(id)
+	finally:
+    		print(id)
+    		contents = requests.get("http://127.0.0.1:3000/home/publish_number.text?card=" + str(id))
+                time.sleep(2)

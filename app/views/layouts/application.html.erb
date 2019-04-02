@@ -58,6 +58,7 @@
                 <li><%= link_to "Hesap Hareketleri", account_activities_path %></li>
                 <li><%= link_to "Siparişler", orders_path %></li>
                 <li><%= link_to "Ürünler", products_path %></li>
+                <li><%= link_to "Z Raporu", zreport_reports_path %></li>
             <% end %>
             <li><%= link_to "#{@current_account.name} (Hesabım)", account_details_home_path %></li>
             <li><%= link_to "Çıkış", logout_home_path, data: {method: :delete}, class: 'pull-right' %></li>

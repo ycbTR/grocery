@@ -5,6 +5,7 @@ class AccountsController < AdminController
   # GET /accounts.json
   def index
     params[:q] ||= {}
+    params[:q][:s] ||= "name asc"
     @q = Account.ransack(params[:q])
     if request.format.xls?
       filename = "Hesaplar_#{I18n.localize(Time.current)}.xls"

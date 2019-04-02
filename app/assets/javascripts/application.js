@@ -30,11 +30,11 @@ function hide_loading() {
 
 setInterval(function () {
     $('.alert').fadeOut();
-}, 3000);
+}, 5000);
 
 setInterval(function () {
     hide_loading()
-}, 10000);
+}, 20000);
 
 $(document).on("turbolinks:click", function () {
     get_loading_container();

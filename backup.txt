@@ -1,0 +1,3 @@
+#!/bin/bash
+now=$(date +"%s%N")
+./Dropbox-Uploader/dropbox_uploader.sh upload ~/projects/grocery/db/development.sqlite3  "backup_$now.sqlite3"

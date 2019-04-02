@@ -32,7 +32,7 @@
   <% @account_activities.each do |account_activity| %>
       <tr>
         <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source.respond_to?(:to_link) ? account_activity.source.to_link : account_activity.source )) rescue '' %></td>
-        <td><%= account_activity.amount %></td>
+        <td class="<%= account_activity.amount > 0 ? 'success' : 'danger' %>">₺<%= account_activity.amount.to_f %></td>
         <td><%= account_activity.account.try(:name) %></td>
         <td><%= l account_activity.created_at %></td>
         <td><%= account_activity.admin.try(:name) || '-' %></td>

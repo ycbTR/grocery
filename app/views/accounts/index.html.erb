@@ -11,6 +11,7 @@
   <th colspan="7">
     <%= search_form_for @q do |f| %>
         <%= f.search_field :name_cont, placeholder: 'İsim' %>
+        <%= f.select :balance_lt, options_for_select([ ['Tümü', nil], ['Borçlu olanlar', '0'] ], selected: params[:q][:balance_lt]) %>
         <%= f.submit 'Ara' %>
     <% end %>
     <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
@@ -20,10 +21,10 @@
 
   <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= sort_link @q, :name, model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:card) %></th>
-      <th><%= model_class.human_attribute_name(:balance) %></th>
-      <th><%= model_class.human_attribute_name(:admin) %></th>
+      <th><%= sort_link @q, :balance, model_class.human_attribute_name(:balance) %></th>
+      <th><%= sort_link @q, :balance, model_class.human_attribute_name(:admin) %></th>
       <th><%= t :created_at %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -34,7 +35,7 @@
         <td><%= link_to account.id, account_path(account) %></td>
         <td><%= account.name %></td>
         <td><%= account.card %></td>
-        <td><%= account.balance %></td>
+        <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
         <td><%= account.admin %></td>
         <td><%=l account.created_at %></td>
         <td>

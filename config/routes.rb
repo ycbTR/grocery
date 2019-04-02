@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   end
   resources :account_activities
 
+  resources :reports do
+    collection do
+      get :zreport
+    end
+  end
+
   resources :line_items do
     member do
       post :cancel
