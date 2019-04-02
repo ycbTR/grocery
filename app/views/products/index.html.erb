@@ -16,7 +16,6 @@
   </th>
 
   <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
       <th><%= t :created_at %></th>
@@ -26,7 +25,6 @@
   <tbody id="table-body" class="" >
     <% @products.each do |product| %>
       <tr id="<%= dom_id product %>" class="item">
-        <td><%= link_to product.id, product_path(product) %></td>
         <td class="handle"><%= product.name %></td>
         <td>₺<%= product.price %></td>
         <td><%=l product.created_at %></td>

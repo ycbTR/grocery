@@ -20,11 +20,11 @@
   </th>
 
   <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= sort_link @q, :name, model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:card) %></th>
       <th><%= sort_link @q, :balance, model_class.human_attribute_name(:balance) %></th>
-      <th><%= sort_link @q, :balance, model_class.human_attribute_name(:admin) %></th>
+      <th><%= sort_link @q, :credit_limit, 'Kredi limiti' %></th>
+      <th><%= sort_link @q, :admin, model_class.human_attribute_name(:admin) %></th>
       <th><%= t :created_at %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -32,10 +32,10 @@
   <tbody>
     <% @accounts.each do |account| %>
       <tr>
-        <td><%= link_to account.id, account_path(account) %></td>
         <td><%= account.name %></td>
         <td><%= account.card %></td>
         <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
+        <td>₺<%= account.credit_limit.to_f %></td>
         <td><%= account.admin %></td>
         <td><%=l account.created_at %></td>
         <td>

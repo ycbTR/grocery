@@ -4,6 +4,7 @@ class AccountActivity < ApplicationRecord
   belongs_to :source, polymorphic: true, required: false
   after_save :update_account
   after_destroy :update_account
+  validates :amount, :account, presence: true
 
   def update_account
     self.account.update_balance

@@ -10,12 +10,14 @@
         <Cell><Data ss:Type="String">ID</Data></Cell>
         <Cell><Data ss:Type="String">İsim Soyisim</Data></Cell>
         <Cell><Data ss:Type="String">Bakiye</Data></Cell>
+        <Cell><Data ss:Type="String">Kredi limiti</Data></Cell>
       </Row>
       <% @accounts.each do |account| %>
           <Row>
             <Cell><Data ss:Type="Number"><%= account.id %></Data></Cell>
             <Cell><Data ss:Type="String"><%= account.name %></Data></Cell>
             <Cell><Data ss:Type="Number"><%= account.balance %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= account.credit_limit.to_f %></Data></Cell>
           </Row>
       <% end %>
     </Table>

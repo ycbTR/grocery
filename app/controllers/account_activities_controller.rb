@@ -1,10 +1,16 @@
 class AccountActivitiesController < AdminController
+  skip_before_action :authorize_admin!, only: [:new, :create, :index]
+  before_action :authorize_admin_cashier!, only: [:new, :create, :index]
   before_action :set_account_activity, only: [:show, :edit, :update, :destroy]
-
   # GET /account_activities
   # GET /account_activities.json
   def index
     params[:q] ||= {}
+    if @current_account.cashier? && !@current_account.admin?
+      params[:q][:admin_id_eq] = @current_account.id
+      params[:q][:amount_gt]= 0
+      params[:q][:created_at_gte] = 18.hours.ago
+    end
     if params[:q][:created_at_cont].present?
       @date = params[:q][:created_at_cont].to_date
       params[:q][:created_at_gteq] = @date.beginning_of_day
@@ -14,7 +20,7 @@ class AccountActivitiesController < AdminController
 
     @q = AccountActivity.ransack(params[:q])
     if request.format.xls?
-      filename = "Hesap_Hareketleri_#{I18n.localize(Time.current)}.xls"
+      filename = "Hesap_Hareketleri_#{I18n.localize(Time.current, format: :custom)}.xls"
       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
       @account_activities = @q.result(distinct: true).order(:created_at => :desc)
     else
@@ -45,7 +51,7 @@ class AccountActivitiesController < AdminController
     @account_activity.admin_id = @current_account.id
     respond_to do |format|
       if @account_activity.save
-        format.html { redirect_to account_path(@account_activity.account_id), notice: 'Account activity was successfully created.' }
+        format.html { redirect_to account_activities_path, notice: "Bakiye yüklendi" }
         format.json { render :show, status: :created, location: @account_activity }
       else
         format.html { render :new }

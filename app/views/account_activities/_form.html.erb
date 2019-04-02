@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :amount, :class => 'control-label col-lg-2' %>
+    <%= f.label :amount, :class => 'control-label col-lg-2', required: true %>
     <div class="col-lg-10">
       <%= f.text_field :amount, :class => 'form-control', placeholder: 'Örnek: 15.50' %>
       <span>Bakiye silmek için negatif tutar girebilirsiniz.</span>
@@ -26,7 +26,7 @@
   <div class="form-group">
     <%= f.label :account_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select :account_id, options_for_select(Account.pluck(:name, :id), selected: f.object.account_id) %>
+      <%= f.select :account_id, options_for_select(Account.active.pluck(:name, :id), selected: f.object.account_id), prompt: 'Hesap Seçiniz' %>
     </div>
     <%=f.error_span(:account_id) %>
   </div>

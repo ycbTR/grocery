@@ -5,7 +5,7 @@ tr:
   completed_at: Sipariş tarihi
   activerecord:
     models:
-      account_activity: Hesap Hareketleri
+      account_activity: Bakiye Hareketleri
       account: Hesaplar
       line_item: Sepet ürünü
       order: Siparişler
@@ -37,6 +37,11 @@ tr:
         total: Toplam
         product_id: 'Ürün #'
     errors:
+      models:
+        account_activity:
+          attributes:
+            account:
+              required: 'seçiniz'
       template:
         header:
           one:   "1 hata var"
@@ -317,6 +322,7 @@ tr:
   balance: Bakiye
   credit_limit: Kredi limiti
   admin: Yönetici
+  cashier: Kasiyer
   order_id: 'Sipariş #'
   amount: Tutar
   account_id: Hesap

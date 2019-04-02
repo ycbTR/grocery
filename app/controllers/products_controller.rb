@@ -7,7 +7,7 @@ class ProductsController < AdminController
     params[:q] ||= {}
     params[:q][:deleted_at_null] ||= true
     @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true).page(params[:page]).order(:position)
+    @products = @q.result(distinct: true).page(params[:page]).per(50).order(:position)
   end
 
 
@@ -37,7 +37,7 @@ class ProductsController < AdminController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to products_path, notice: 'Ürün oluşturuldu.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class ProductsController < AdminController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to products_path, notice: 'Ürün güncellendi' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }

@@ -6,6 +6,10 @@ class Account < ApplicationRecord
   validates :card, uniqueness: true
   after_create :set_account_activity
 
+  def self.active
+    where(deleted_at: nil)
+  end
+
   def enough_balance?(amount)
     (self.balance.to_f + self.credit_limit.to_f) >= amount.to_f
   end
@@ -24,8 +28,12 @@ class Account < ApplicationRecord
   end
 
   def set_account_activity
-    self.account_activities.create(amount: self.balance.to_f, source: Account.current, admin_id: Account.current.id )
+    self.account_activities.create(amount: self.balance.to_f, source: Account.current, admin_id: Account.current.id)
   end
 
+
+  def destroy
+    self.touch :deleted_at
+  end
 
 end

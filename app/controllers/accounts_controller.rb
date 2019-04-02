@@ -6,9 +6,10 @@ class AccountsController < AdminController
   def index
     params[:q] ||= {}
     params[:q][:s] ||= "name asc"
+    params[:q][:deleted_at_null] ||= "1"
     @q = Account.ransack(params[:q])
     if request.format.xls?
-      filename = "Hesaplar_#{I18n.localize(Time.current)}.xls"
+      filename = "Hesaplar_#{I18n.localize(Time.current, format: :custom)}.xls"
       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
       @accounts = @q.result(distinct: true)
     else
@@ -38,7 +39,7 @@ class AccountsController < AdminController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
+        format.html { redirect_to accounts_path, notice: 'Hesap oluşturuldu' }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new }
@@ -52,7 +53,7 @@ class AccountsController < AdminController
   def update
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+        format.html { redirect_to accounts_path, notice: 'Hesap güncellendi' }
         format.json { render :show, status: :ok, location: @account }
       else
         format.html { render :edit }
@@ -79,6 +80,6 @@ class AccountsController < AdminController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def account_params
-    params.require(:account).permit(:name, :card, :balance, :credit_limit)
+    params.require(:account).permit(:name, :card, :balance, :credit_limit, :admin, :cashier)
   end
 end

@@ -25,7 +25,7 @@ class OrdersController < AdminController
 
     @q = Order.ransack(params[:q])
     if request.format.xls?
-      filename = "Siparişler_#{I18n.localize(Time.current)}.xls"
+      filename = "Siparişler_#{I18n.localize(Time.current, format: :custom)}.xls"
       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
       @orders = @q.result(distinct: true).order(:completed_at => :desc)
     else

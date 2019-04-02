@@ -1,6 +1,19 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_account
-  rescue_from Exception, with: :rescued_request
+  before_action :session_expiry
+  before_action :update_activity_time
+  # rescue_from Exception, with: :rescued_request
+
+
+  def session_expiry
+    get_session_time_left
+    if @current_account and @session_time_left.to_f < 0
+      flash[:error] = "Oturumunuz sona erdi. Tekrar giriş yapınız."
+      session.delete :account_id
+      session.delete :expires_at
+      redirect_to root_path and return
+    end
+  end
 
 
   def rescued_request
@@ -13,6 +26,7 @@ class ApplicationController < ActionController::Base
       flash[:warning] = 'Giriş yapınız'
       redirect_to root_path and return
     end
+    update_activity_time
     @logged_in = true
   end
 
@@ -29,4 +43,15 @@ class ApplicationController < ActionController::Base
     @order
   end
 
+  private
+
+  def get_session_time_left
+    return nil if session[:expires_at].blank?
+    expire_time = session[:expires_at].to_time
+    @session_time_left = (expire_time - Time.now).to_i
+  end
+
+  def update_activity_time
+    session[:expires_at] = 2.minutes.from_now
+  end
 end
