@@ -26,14 +26,14 @@
           <span class="pull-right"><%= l @order.completed_at, format: :long %></span>
         </td>
       </tr>
-      <tr>
+      <tr style="font-size: 16px;">
         <td><b>Ürün</b></td>
         <td class="text-right"><b>Fiyat</b></td>
       </tr>
       <% @order.line_items.each do |li| %>
       <tr>
         <td>
-          <b><%= li.product.try(:name) %></b>
+          <%= li.product.try(:name) %>
           <% unless li.canceled? %>
           <%= link_to 'Ürünü İptal Et', cancel_line_item_path(li), data: {method: :post, confirm: 'Emin misiniz?'}, class: 'btn btn-default btn-xs pull-left' if @current_account.admin? %>
           <% else %>
