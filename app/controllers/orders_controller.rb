@@ -66,7 +66,7 @@ class OrdersController < AdminController
         redirect_to root_path and return
       end
       # Admin can add expense to any account.
-      if account.admin? && params[:account_id].present?
+      if (account.admin? or account.cashier?) && params[:account_id].present?
         admin_account = account
         account = Account.where(id: params[:account_id]).first
       end
