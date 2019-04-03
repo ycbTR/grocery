@@ -8,10 +8,10 @@
   <thead>
   <tr>
     <th colspan="5">
-      <%= search_form_for @q do |f| %>
+      <%= search_form_for @q, class: 'form-inline' do |f| %>
           <%= f.search_field :account_name_cont, placeholder: 'İsim', class: 'form-control' %>
           <%= f.search_field :completed_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off', class: 'form-control' %>
-          <%= f.select :state_cont, options_for_select([['Tümü', '-1'], ['Tamamlanmış', 'completed'], ['İptal', 'canceled']], selected: params[:q][:state_cont]), class: 'form-control' %>
+          <%= f.select :state_cont, options_for_select([['Tümü', '-1'], ['Tamamlanmış', 'completed'], ['İptal', 'canceled']], selected: params[:q][:state_cont]),{}, class: 'form-control' %>
           <%= f.submit 'Ara', class: 'btn btn-default' %>
       <% end %>
     </th>

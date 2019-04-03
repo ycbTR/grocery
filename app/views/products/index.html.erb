@@ -9,7 +9,7 @@
 <table class="table table-striped sortable" data-sortable-link="<%= update_positions_products_path %>">
   <thead>
   <th colspan="5">
-    <%= search_form_for @q do |f| %>
+    <%= search_form_for @q, class: 'form-inline' do |f| %>
         <%= f.search_field :name_cont, placeholder: 'İsim', class: 'form-control' %>
         <%= f.submit 'Ara', class: 'btn btn-default' %>
     <% end %>

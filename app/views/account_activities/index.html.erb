@@ -2,48 +2,45 @@
 <div class="page-header">
   <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
   <%= link_to 'Bakiye Yükle',
-              new_account_activity_path,
-              :class => 'btn btn-primary pull-right' %>
+  new_account_activity_path,
+  :class => 'btn btn-primary pull-right' %>
   <div class="clearfix"></div>
 </div>
 <table class="table table-striped">
   <thead>
-  <tr>
-    <th colspan="5">
-      <%= search_form_for @q do |f| %>
-          <%= f.search_field :account_name_cont, placeholder: 'İsim' %>
-          <%= f.search_field :created_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off' %>
-
-          <label><%= f.check_box :amount_gteq, {class: 'check'}, -999999999, nil %> Tümü</label>
-          <label><%= f.check_box :amount_lt,  {class: 'check'}, 0, 9999999  %> Harcamalar</label>
-          <label>
-            <%= f.check_box :amount_gt, {class: 'check'}, 0, -9999999 %> Yüklemeler</label>
-
-          <%= f.submit 'Ara' %>
-      <% end if @current_account.admin? %>
-      <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
-          Excel'e aktar
-      <% end if @current_account.admin? %>
-    </th>
-  </tr>
-  <tr>
-    <th><%= 'Kaynak' %></th>
-    <th><%= sort_link @q, :amount, model_class.human_attribute_name(:amount) %></th>
-    <th>Hesap</th>
-    <th><%=sort_link @q, :created_at,  t(:created_at) %></th>
-    <th><%= 'İşlemi yapan' %></th>
-  </tr>
+    <tr>
+      <th colspan="5">
+        <%= search_form_for @q, class: 'form-inline' do |f| %>
+        <%= f.search_field :account_name_cont, placeholder: 'İsim', class: 'form-control' %>
+        <%= f.search_field :created_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off', class: 'form-control' %>
+        <label><%= f.check_box :amount_gteq, {class: 'check form-control'}, -999999999, nil %> Tümü</label>
+        <label><%= f.check_box :amount_lt,  {class: 'check form-control'}, 0, 9999999  %> Harcamalar</label>
+        <label><%= f.check_box :amount_gt, {class: 'check form-control'}, 0, -9999999 %> Yüklemeler</label>
+        <%= f.submit 'Ara', class: 'btn btn-default' %>
+        <% end if @current_account.admin? %>
+        <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
+        Excel'e aktar
+        <% end if @current_account.admin? %>
+      </th>
+    </tr>
+    <tr>
+      <th><%= 'Kaynak' %></th>
+      <th><%= sort_link @q, :amount, model_class.human_attribute_name(:amount) %></th>
+      <th>Hesap</th>
+      <th><%=sort_link @q, :created_at,  t(:created_at) %></th>
+      <th><%= 'İşlemi yapan' %></th>
+    </tr>
   </thead>
   <tbody>
-  <% @account_activities.each do |account_activity| %>
-      <tr>
-        <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source.respond_to?(:to_link) ? account_activity.source.to_link : account_activity.source)) rescue '' %></td>
-        <td class="<%= account_activity.amount.to_f > 0 ? 'success' : 'danger' %>">₺<%= account_activity.amount.to_f %></td>
-        <td><%= account_activity.account.try(:name) %></td>
-        <td><%= l account_activity.created_at %></td>
-        <td><%= account_activity.admin.try(:name) || '-' %></td>
-      </tr>
-  <% end %>
+    <% @account_activities.each do |account_activity| %>
+    <tr>
+      <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source.respond_to?(:to_link) ? account_activity.source.to_link : account_activity.source)) rescue '' %></td>
+      <td class="<%= account_activity.amount.to_f > 0 ? 'success' : 'danger' %>">₺<%= account_activity.amount.to_f %></td>
+      <td><%= account_activity.account.try(:name) %></td>
+      <td><%= l account_activity.created_at %></td>
+      <td><%= account_activity.admin.try(:name) || '-' %></td>
+    </tr>
+    <% end %>
   </tbody>
 </table>
 <%= paginate @account_activities, :theme => 'twitter-bootstrap-3' %>
