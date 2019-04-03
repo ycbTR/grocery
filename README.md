@@ -27,5 +27,4 @@ Things you may want to cover:
 https://www.raspberrypi.org/forums/viewtopic.php?t=76925
 Spring stop
 
-
--- How to read till card read
+https://greatxam.wordpress.com/2009/01/05/xml-format-for-excel/
