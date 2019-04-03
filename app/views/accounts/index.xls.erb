@@ -11,6 +11,8 @@
         <Cell><Data ss:Type="String">İsim Soyisim</Data></Cell>
         <Cell><Data ss:Type="String">Bakiye</Data></Cell>
         <Cell><Data ss:Type="String">Kredi limiti</Data></Cell>
+        <Cell><Data ss:Type="String">Yönetici</Data></Cell>
+        <Cell><Data ss:Type="String">Bakiye Yükleyebilir</Data></Cell>
       </Row>
       <% @accounts.each do |account| %>
           <Row>
@@ -18,6 +20,8 @@
             <Cell><Data ss:Type="String"><%= account.name %></Data></Cell>
             <Cell><Data ss:Type="Number"><%= account.balance %></Data></Cell>
             <Cell><Data ss:Type="Number"><%= account.credit_limit.to_f %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= yes_no account.admin %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= yes_no account.cashier %></Data></Cell>
           </Row>
       <% end %>
     </Table>

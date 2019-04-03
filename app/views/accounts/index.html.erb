@@ -22,6 +22,7 @@
       <th><%= sort_link @q, :balance, model_class.human_attribute_name(:balance) %></th>
       <th><%= sort_link @q, :credit_limit, 'Kredi limiti' %></th>
       <th><%= sort_link @q, :admin, model_class.human_attribute_name(:admin) %></th>
+      <th><%= sort_link @q, :cashier, 'Bakiye yükleyebilir' %></th>
       <th><%= t :created_at %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -33,7 +34,8 @@
         <td><%= account.card %></td>
         <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
         <td>₺<%= account.credit_limit.to_f %></td>
-        <td><%= account.admin %></td>
+        <td><%= yes_no account.admin %></td>
+        <td><%= yes_no account.cashier %></td>
         <td><%=l account.created_at %></td>
         <td>
           <%= link_to 'Bakiye Yükle',
