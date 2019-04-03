@@ -4,19 +4,45 @@
           xmlns:x="urn:schemas-microsoft-com:office:excel"
           xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
           xmlns:html="http://www.w3.org/TR/REC-html40">
+
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom"/>
+      <Borders/>
+      <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+      ss:Color="#000000"/>
+      <Interior/>
+      <NumberFormat/>
+      <Protection/>
+    </Style>
+    <Style ss:ID="s62">
+      <Interior ss:Color="#FCF305" ss:Pattern="Solid"/>
+    </Style>
+    <Style ss:ID="s63">
+      <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+      ss:Color="#000000" ss:Bold="1"/>
+    </Style>
+    <Style ss:ID="s64">
+      <NumberFormat ss:Format="#,##0.00\ &quot;TRY&quot;;[Red]#,##0.00\ &quot;TRY&quot;"/>
+    </Style>
+    <Style ss:ID="s65">
+      <NumberFormat ss:Format="Short Date"/>
+    </Style>
+  </Styles>
+
   <Worksheet ss:Name="Sheet1">
   <Table>
       <Row>
-        <Cell><Data ss:Type="String">ID</Data></Cell>
-        <Cell><Data ss:Type="String">Hesap</Data></Cell>
-        <Cell><Data ss:Type="String">Toplam</Data></Cell>
-        <Cell><Data ss:Type="String">Tarih</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">ID</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Hesap</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Toplam</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Tarih</Data></Cell>
       </Row>
       <% @orders.each do |order| %>
           <Row>
             <Cell><Data ss:Type="Number"><%= order.id %></Data></Cell>
             <Cell><Data ss:Type="String"><%= order.account.try(:name) %></Data></Cell>
-            <Cell><Data ss:Type="Number"><%= order.total %></Data></Cell>
+            <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= order.total %></Data></Cell>
             <Cell><Data ss:Type="String"><%= l order.completed_at %></Data></Cell>
           </Row>
       <% end %>

@@ -4,22 +4,48 @@
           xmlns:x="urn:schemas-microsoft-com:office:excel"
           xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
           xmlns:html="http://www.w3.org/TR/REC-html40">
+
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom"/>
+      <Borders/>
+      <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+      ss:Color="#000000"/>
+      <Interior/>
+      <NumberFormat/>
+      <Protection/>
+    </Style>
+    <Style ss:ID="s62">
+      <Interior ss:Color="#FCF305" ss:Pattern="Solid"/>
+    </Style>
+    <Style ss:ID="s63">
+      <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+      ss:Color="#000000" ss:Bold="1"/>
+    </Style>
+    <Style ss:ID="s64">
+      <NumberFormat ss:Format="#,##0.00\ &quot;TRY&quot;;[Red]-#,##0.00\ &quot;TRY&quot;"/>
+    </Style>
+    <Style ss:ID="s65">
+      <NumberFormat ss:Format="Short Date"/>
+    </Style>
+  </Styles>
+
   <Worksheet ss:Name="Sheet1">
   <Table>
       <Row>
-        <Cell><Data ss:Type="String">ID</Data></Cell>
-        <Cell><Data ss:Type="String">İsim Soyisim</Data></Cell>
-        <Cell><Data ss:Type="String">Bakiye</Data></Cell>
-        <Cell><Data ss:Type="String">Kredi limiti</Data></Cell>
-        <Cell><Data ss:Type="String">Yönetici</Data></Cell>
-        <Cell><Data ss:Type="String">Bakiye Yükleyebilir</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">ID</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">İsim Soyisim</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Bakiye</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Kredi limiti</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Yönetici</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Bakiye Yükleyebilir</Data></Cell>
       </Row>
       <% @accounts.each do |account| %>
           <Row>
             <Cell><Data ss:Type="Number"><%= account.id %></Data></Cell>
             <Cell><Data ss:Type="String"><%= account.name %></Data></Cell>
-            <Cell><Data ss:Type="Number"><%= account.balance %></Data></Cell>
-            <Cell><Data ss:Type="Number"><%= account.credit_limit.to_f %></Data></Cell>
+            <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= account.balance %></Data></Cell>
+            <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= account.credit_limit.to_f %></Data></Cell>
             <Cell><Data ss:Type="String"><%= yes_no account.admin %></Data></Cell>
             <Cell><Data ss:Type="String"><%= yes_no account.cashier %></Data></Cell>
           </Row>
