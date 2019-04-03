@@ -1,3 +1,5 @@
+<div class="container" style="margin-top: 25%;">
+
 <div class="text-center">
   <h1>  Kartınızı okutunuz </h1>
   <%= form_tag login_home_path, data: {method: :post}, class: 'autosubmit' do %>
@@ -12,3 +14,5 @@
 </div>
 
 <%= render partial: '/shared/reader', locals: {auto_submit: true} %>
+
+</div>

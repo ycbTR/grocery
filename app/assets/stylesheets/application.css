@@ -19,17 +19,18 @@ html, body {
     height: 100%;
     background: #fafafa;
 }
-
-.mainContainer, .container {
+.container {
+  overflow: scroll;
+  padding-bottom: 100px;
+  margin-top: 30px;
+  background: white;
+  box-shadow: 0px 1px 5px 0px #adabab;
+}
+.mainContainer {
     overflow: hidden;
     display: block;
     height: 100%;
     background: #fafafa;
-}
-
-.container {
-    overflow: scroll;
-    padding-bottom: 100px;
 }
 
 .footer {
@@ -183,4 +184,3 @@ html, body {
 .handle {
     cursor: pointer;
 }
-
