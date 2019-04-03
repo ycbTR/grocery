@@ -7,7 +7,13 @@ class ProductsController < AdminController
     params[:q] ||= {}
     params[:q][:deleted_at_null] ||= true
     @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true).page(params[:page]).per(50).order(:position)
+    per_count = 50
+    if request.format.xls?
+      filename = "ÜrünListesi_#{I18n.localize(Time.current, format: :custom)}.xls"
+      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
+      per_count = 999
+    end
+    @products = @q.result(distinct: true).page(params[:page]).per(per_count).order(:position)
   end
 
 

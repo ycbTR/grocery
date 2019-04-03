@@ -10,8 +10,8 @@
   <thead>
   <th colspan="5">
     <%= search_form_for @q do |f| %>
-        <%= f.search_field :name_cont, placeholder: 'İsim' %>
-        <%= f.submit 'Ara' %>
+        <%= f.search_field :name_cont, placeholder: 'İsim', class: 'form-control' %>
+        <%= f.submit 'Ara', class: 'btn btn-default' %>
     <% end %>
   </th>
 
@@ -44,3 +44,7 @@
 <%= paginate @products,:theme => 'twitter-bootstrap-3' %>
 <br>
 <%= page_entries_info @products %>
+
+<%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
+    Excel'e aktar
+<% end %>

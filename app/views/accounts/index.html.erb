@@ -9,13 +9,10 @@
 <table class="table table-striped">
   <thead>
   <th colspan="7">
-    <%= search_form_for @q do |f| %>
-        <%= f.search_field :name_cont, placeholder: 'İsim' %>
-        <%= f.select :balance_lt, options_for_select([ ['Tümü', nil], ['Borçlu olanlar', '0'] ], selected: params[:q][:balance_lt]) %>
-        <%= f.submit 'Ara' %>
-    <% end %>
-    <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
-        Excel'e aktar
+    <%= search_form_for @q, class: 'form-inline' do |f| %>
+        <%= f.search_field :name_cont, placeholder: 'İsim', class: 'form-control' %>
+        <%= f.select :balance_lt, options_for_select([ ['Tümü', nil], ['Borçlu olanlar', '0'] ], selected: params[:q][:balance_lt]), class: 'form-control' %>
+        <%= f.submit 'Ara', class: 'btn btn-default' %>
     <% end %>
   </th>
 
@@ -56,3 +53,7 @@
 <%= paginate @accounts,:theme => 'twitter-bootstrap-3' %>
 <br>
 <%= page_entries_info @accounts %>
+<br>
+<%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
+    Excel'e aktar
+<% end %>
