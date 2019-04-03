@@ -33,7 +33,7 @@
       <% @order.line_items.each do |li| %>
       <tr>
         <td>
-          <%= li.product.try(:name) %>
+          <b><%= li.product.try(:name) %></b>
           <% unless li.canceled? %>
           <%= link_to 'Ürünü İptal Et', cancel_line_item_path(li), data: {method: :post, confirm: 'Emin misiniz?'}, class: 'btn btn-default btn-xs pull-left' if @current_account.admin? %>
           <% else %>
@@ -43,7 +43,7 @@
         <td class="text-right">₺<%= li.price %></td>
       </tr>
       <% end %>
-      <tr>
+      <tr style="font-size: 16px;">
         <td class="text-right"><b>Toplam:</b></td>
         <td class="text-right"><b>₺<%= @order.total %></b></td>
       </tr>
