@@ -11,7 +11,7 @@
     <th colspan="7">
       <%= search_form_for @q, class: 'form-inline' do |f| %>
       <%= f.search_field :name_cont, placeholder: 'İsim', class: 'form-control' %>
-      <% if params[:q][:card_eq] %>
+      <% if params[:q][:card_eq].present? %>
       <%= f.search_field :card_eq, placeholder: 'Kart#', class: 'form-control' %>
       <% end %>
       <%= f.select :balance_lt, options_for_select([ ['Tümü', nil], ['Borçlu olanlar', '0'] ], selected: params[:q][:balance_lt]), {}, class: 'form-control' %>
