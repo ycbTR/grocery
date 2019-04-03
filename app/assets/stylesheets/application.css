@@ -16,7 +16,7 @@
  */
 
 html, body {
-    height: 100%;
+    /* height: 100%; */
     background: #fafafa;
 }
 .container {
@@ -34,7 +34,7 @@ html, body {
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
     background: #fff;
     bottom: 0px;
