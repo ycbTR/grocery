@@ -23,7 +23,7 @@ class OrdersController < AdminController
       params[:q].delete :state_cont
     end
 
-    @q = Order.ransack(params[:q])
+    @q = Order.where(state: ['completed', 'canceled']).ransack(params[:q])
     if request.format.xls?
       filename = "Siparişler_#{I18n.localize(Time.current, format: :custom)}.xls"
       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
