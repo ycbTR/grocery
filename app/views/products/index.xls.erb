@@ -9,19 +9,12 @@
       <Row>
         <Cell><Data ss:Type="String">Fiyat Listesi</Data></Cell>
       </Row>
-      <Row>
-        <Cell><Data ss:Type="String">Ürün</Data></Cell>
-        <Cell><Data ss:Type="String">Fiyat</Data></Cell>
-      </Row>
       <% @products.each do |product| %>
           <Row>
             <Cell><Data ss:Type="String"><%= product.name %></Data></Cell>
             <Cell><Data ss:Type="String"><%= product.price %> TL</Data></Cell>
           </Row>
       <% end %>
-      <Row>
-        <Cell><Data ss:Type="String"><%= Date.today.to_s(:long) %></Data></Cell>
-      </Row>
     </Table>
   </Worksheet>
 </Workbook>
