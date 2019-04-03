@@ -16,24 +16,14 @@ class HomeController < ApplicationController
   end
 
   def publish_number
+    account_id = Account.where(card: params[:card]).first.try(:id)
     ActionCable.server.broadcast 'rfid_read',
-                                 card: params[:card]
+                                 card: params[:card], account_id: account_id
     render text: 'ok'
   end
 
   def read
-    # r = ""
-    # `ssh pi@192.168.1.83 "sudo ./kill_reader.sh"`
-    # begin
-    #   status = Timeout::timeout(10) {
-    #     r = `ssh pi@192.168.1.83 "sudo python read.py > /dev/null &"`
-    #   }
-    # rescue
-    # end
-    # `ssh pi@192.168.1.83 "sudo ./kill_reader.sh"`
-    # @response = r.gsub(/[^\d]/, '')
 
-    # system("sudo ./readRfid.sh")
   end
 
   def login
