@@ -26,7 +26,7 @@
   <div class="form-group">
     <%= f.label :account_id, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select :account_id, options_for_select(Account.active.pluck(:name, :id), selected: f.object.account_id), {prompt: 'Hesap Seçiniz'}, id: 'accountID' %>
+      <%= f.select :account_id, options_for_select(Account.active.pluck(:name, :id), selected: f.object.account_id), {prompt: 'Hesap Seçiniz veya kart okutunuz'}, id: 'accountID', class: 'form-control' %>
     </div>
     <%=f.error_span(:account_id) %>
   </div>
