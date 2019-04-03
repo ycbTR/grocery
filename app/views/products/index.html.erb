@@ -44,7 +44,7 @@
 <%= paginate @products,:theme => 'twitter-bootstrap-3' %>
 <br>
 <%= page_entries_info @products %>
-
+<br>
 <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
     Excel'e aktar
 <% end %>

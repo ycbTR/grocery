@@ -18,9 +18,6 @@
         <label><%= f.check_box :amount_gt, {class: 'check form-control'}, 0, -9999999 %> Yüklemeler</label>
         <%= f.submit 'Ara', class: 'btn btn-default' %>
         <% end if @current_account.admin? %>
-        <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
-        Excel'e aktar
-        <% end if @current_account.admin? %>
       </th>
     </tr>
     <tr>
@@ -53,3 +50,7 @@ $(function(){
   })
 })
 </script>
+<br>
+<%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
+Excel'e aktar
+<% end if @current_account.admin? %>
