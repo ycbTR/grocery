@@ -1,5 +1,8 @@
 class OrdersController < AdminController
   skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item, :show]
+  skip_before_action :session_expiry, only: [:populate, :complete, :remove_item, :show]
+  skip_before_action :update_activity_time, only: [:populate, :complete, :remove_item, :show]
+
   before_action :account_required!, only: [:show]
   before_action :set_order, only: [:show, :edit, :update, :destroy, :cancel]
 
