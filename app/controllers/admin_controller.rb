@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
-
+  before_action :session_expiry
+  before_action :update_activity_time
   before_action :authorize_admin!
 
   def authorize_admin!
