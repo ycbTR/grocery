@@ -11,6 +11,7 @@ App.rfid_read = App.cable.subscriptions.create('RfidReadChannel', {
         $("#card").val(data.card);
         $("#accountID").val(data.account_id);
         $('form.autosubmit').submit();
+        $('form.autosubmit.disable').removeClass('autosubmit');
         return true;
     }
 });
