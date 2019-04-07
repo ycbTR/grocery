@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_account
-  rescue_from Exception, with: :rescued_request
+  # rescue_from Exception, with: :rescued_request
 
 
   def session_expiry

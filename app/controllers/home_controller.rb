@@ -2,12 +2,22 @@ class HomeController < ApplicationController
   before_action :account_required!, only: [:account_details]
 
   def index
-    @products = Product.active.order('position')
+    @products = Product.active.order('position').to_a
     @order = current_order(false)
+    @products_to_hide = []
+    @order.line_items.group(:product_id).count.each do |pid, count|
+      p = @products.select { |p| (p.id == pid) && p.count_on_hand <= count }
+      @products_to_hide << p[0].id if p && p[0]
+    end if @order
   end
 
   def reset_cart
+    @order = current_order
+    if @order
+      @product_ids_to_show = @order.line_items.pluck(:product_id)
+    end
     session.delete :order_id
+    @order = nil
     respond_to do |format|
       format.js
     end

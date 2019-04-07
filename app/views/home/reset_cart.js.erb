@@ -1,1 +1,6 @@
-$("#cartArea").replaceWith("<%= j render partial: 'orders/cart', formats: [:html], handlers: [:erb] %>")  ;
+$("#cartArea").replaceWith("<%= j render partial: 'orders/cart', formats: [:html], handlers: [:erb] %>");
+<% if @product_ids_to_show %>
+<% @product_ids_to_show.each do |pid| %>
+$("#product_<%= pid %>").show();
+<% end %>
+<% end %>

@@ -2,7 +2,7 @@
 
   <ul class="productList">
     <% @products.each do |product| %>
-        <li onclick="$(this).find('form').trigger('submit');" id="product_<%= product.id %>">
+        <li onclick="$(this).find('form').trigger('submit');" id="product_<%= product.id %>" style="display: <%= @products_to_hide.include?(product.id) ? 'none' : 'inherit' %>">
           <div class="productItem text-center" data-id="<%= product.id %>">
             <%= form_tag populate_orders_path, data: {method: :post, remote: true} do %>
                 <%= image_tag url_for(product.image), width: 148, height: 148 if product.image.attached? %>
