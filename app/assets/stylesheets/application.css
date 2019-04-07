@@ -185,3 +185,10 @@ html, body {
 .handle {
     cursor: pointer;
 }
+
+#datetime {
+    position: absolute;
+    left: 70px;
+    bottom: 0px;
+    font-size: 10px;
+}

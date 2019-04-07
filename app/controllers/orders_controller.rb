@@ -38,14 +38,19 @@ class OrdersController < AdminController
 
   def populate
     @order = current_order
-    @order.add_to_order(params[:product_id])
+    li = @order.add_to_order(params[:product_id])
+    if li.product.count_on_hand <= @order.line_items.where(product_id: params[:product_id]).count
+      @li = li
+    end
   end
 
   def remove_item
     @order = current_order
     if params[:empty]
+      @product_ids_to_show = @order.line_items.pluck(:product_id)
       @order.line_items.destroy_all
     else
+      @product_ids_to_show = @order.line_items.where(id: params[:line_item_id]).pluck(:product_id)
       @order.line_items.where(id: params[:line_item_id]).destroy_all
     end
     @order.update!
@@ -84,6 +89,7 @@ class OrdersController < AdminController
             account.save!
             account.account_activities.create!(amount: @order.total.to_f * -1, order_id: @order.id, source: @order, admin_id: admin_account.try(:id))
             @order.save!
+            @order.after_complete
           end
           session[:order_id] = nil
           flash[:success] = "#{account.name} ₺#{@order.total} Ödeme alındı. Kalan bakiyeniz: ₺ #{account.balance}"

@@ -338,4 +338,10 @@ tr:
   price: Fiyat
   total: Toplam
   product_id: 'Ürün #'
-
+  views:
+    pagination:
+      first: "&laquo; İlk"
+      last: "Son &raquo;"
+      previous: "&lsaquo; Önceki"
+      next: "Sonraki &rsaquo;"
+      truncate: "&hellip;"

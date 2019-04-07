@@ -36,10 +36,16 @@
       <Row>
         <Cell ss:StyleID="s63"><Data ss:Type="String">Fiyat Listesi</Data></Cell>
       </Row>
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Ürün</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Fiyat</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Stok</Data></Cell>
+      </Row>
       <% @products.each do |product| %>
           <Row>
             <Cell><Data ss:Type="String"><%= product.name %></Data></Cell>
             <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= product.price.to_f %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= product.count_on_hand.to_i %></Data></Cell>
           </Row>
       <% end %>
     </Table>

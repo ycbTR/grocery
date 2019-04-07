@@ -37,6 +37,7 @@ class LineItem < ApplicationRecord
       self.dont_update_prices = true
       self.save
       self.order.update!
+      increase_units
       account = self.order.account
       account.
           account_activities.
@@ -46,6 +47,14 @@ class LineItem < ApplicationRecord
               source: self,
               admin_id: Account.current.try(:id))
     end
+  end
+
+  def increase_units
+    self.product.update_column(:count_on_hand, self.product.count_on_hand.to_f + 1)
+  end
+
+  def decrease_units
+    self.product.update_column(:count_on_hand, self.product.count_on_hand.to_f - 1)
   end
 
 end

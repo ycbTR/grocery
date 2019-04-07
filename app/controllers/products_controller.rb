@@ -22,6 +22,7 @@ class ProductsController < AdminController
       Product.where(id: id).update_all(:position => index)
     end
   end
+
   # GET /products/1
   # GET /products/1.json
   def show
@@ -58,9 +59,11 @@ class ProductsController < AdminController
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to products_path, notice: 'Ürün güncellendi' }
+        format.js { }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
+        format.js { }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
@@ -77,13 +80,13 @@ class ProductsController < AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name, :price, :deleted_at, :image, :position)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    params.require(:product).permit(:name, :price, :deleted_at, :image, :position, :active, :count_on_hand)
+  end
 end

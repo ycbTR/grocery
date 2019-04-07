@@ -1,10 +1,10 @@
 <%- model_class = Product -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
   <%= link_to t('.new', :default => t("helpers.links.new")),
               new_product_path,
               :class => 'btn btn-primary' %>
-<div class="clearfix"></div>
+  <div class="clearfix"></div>
 </div>
 <table class="table table-striped sortable" data-sortable-link="<%= update_positions_products_path %>">
   <thead>
@@ -16,35 +16,58 @@
   </th>
 
   <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:price) %></th>
-      <th><%= t :created_at %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
+    <th><%= model_class.human_attribute_name(:name) %></th>
+    <th><%= model_class.human_attribute_name(:price) %></th>
+    <th>Stok</th>
+    <th>Aktif</th>
+    <th><%= t :created_at %></th>
+    <th><%= t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
   </thead>
-  <tbody id="table-body" class="" >
-    <% @products.each do |product| %>
+  <tbody id="table-body" class="">
+  <% @products.each do |product| %>
       <tr id="<%= dom_id product %>" class="item">
         <td class="handle"><%= product.name %></td>
         <td>₺<%= product.price %></td>
-        <td><%=l product.created_at %></td>
+        <td><%= product.count_on_hand.to_i %></td>
+        <td><%= check_box_tag :active, !product.active, product.active, class: 'activeCheck', data: {url: product_path(product.id)} %></td>
+        <td><%= l product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_product_path(product), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       product_path(product),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
                       :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
-<%= paginate @products,:theme => 'twitter-bootstrap-3' %>
+<%= paginate @products, :theme => 'twitter-bootstrap-3' %>
 <br>
 <%= page_entries_info @products %>
 <br>
 <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
     Excel'e aktar
 <% end %>
+
+
+<script type="text/javascript" charset="utf-8">
+
+  $(document).on('click', '.activeCheck', function () {
+    var el = $(this);
+    $.ajax({
+      type: 'PUT',
+      dataType: 'script',
+      url: el.data("url"),
+      data: {'product': {'active': el.val()}},
+      success: function (data) {
+        $('.loader-big').hide();
+      }
+    });
+  })
+
+
+</script>

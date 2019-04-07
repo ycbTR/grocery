@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :stocks
   mount ActionCable.server => '/cable'
 
   root controller: :home, action: :index
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
     match :login, via: [:get, :post]
     delete :logout
     get :publish_number
+    get :reset_cart, format: :js
     get :read
     get :account_details
   end

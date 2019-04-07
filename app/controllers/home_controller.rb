@@ -2,8 +2,15 @@ class HomeController < ApplicationController
   before_action :account_required!, only: [:account_details]
 
   def index
-    @products = Product.where(:deleted_at => nil).order('position')
+    @products = Product.active.order('position')
     @order = current_order(false)
+  end
+
+  def reset_cart
+    session.delete :order_id
+    respond_to do |format|
+      format.js
+    end
   end
 
   def account_details

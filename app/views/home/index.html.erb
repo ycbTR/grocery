@@ -2,7 +2,7 @@
 
   <ul class="productList">
     <% @products.each do |product| %>
-        <li onclick="$(this).find('form').trigger('submit');">
+        <li onclick="$(this).find('form').trigger('submit');" id="product_<%= product.id %>">
           <div class="productItem text-center" data-id="<%= product.id %>">
             <%= form_tag populate_orders_path, data: {method: :post, remote: true} do %>
                 <%= image_tag url_for(product.image), width: 148, height: 148 if product.image.attached? %>
@@ -22,3 +22,26 @@
 <div class="cartContainer">
   <%= render partial: 'orders/cart' %>
 </div><!--/span-->
+
+
+<script type="text/javascript" charset="utf-8">
+  var idleTime = 0;
+
+  $(document).on('mousemove', function () {
+    idleTime = 0;
+  });
+
+  if (typeof(cartCheck) != 'undefined') {
+    clearInterval(cartCheck);
+  }
+
+  cartCheck = setInterval(function () {
+    if (idleTime > 45) {
+      idleTime = 0;
+      $.get('/home/reset_cart.js');
+    }
+    idleTime += 1;
+  }, 1000)
+
+
+</script>

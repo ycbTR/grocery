@@ -12,6 +12,10 @@ class Order < ApplicationRecord
     where(state: 'completed')
   end
 
+  def after_complete
+    self.line_items.each(&:decrease_units)
+  end
+
   def update_account
     refund_total
     self.account.update_balance
@@ -37,6 +41,7 @@ class Order < ApplicationRecord
     self.update!
     self.update_account # Refunds
     self.line_items.update_all(state: 'canceled')
+    self.line_items.each(&:increase_units)
     self.update!
   end
 
@@ -53,6 +58,7 @@ class Order < ApplicationRecord
     li = self.line_items.new(product_id: product_id)
     li.quantity = 1
     li.save
+    li
   end
 
   def order_display_text
