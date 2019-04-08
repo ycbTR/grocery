@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :account_required!, only: [:account_details]
 
   def index
-    @products = Product.active.order('position').to_a
+    @products = Product.includes(:image_attachment, :image_blob).active.order('position').to_a
     @order = current_order(false)
     @products_to_hide = []
     @order.line_items.group(:product_id).count.each do |pid, count|
