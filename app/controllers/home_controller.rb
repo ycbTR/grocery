@@ -39,6 +39,12 @@ class HomeController < ApplicationController
     render text: 'ok'
   end
 
+  def publish_backup
+    ActionCable.server.broadcast 'publish_backup', status: params[:status]
+    render text: 'ok'
+  end
+
+
   def read
 
   end

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     match :login, via: [:get, :post]
     delete :logout
     get :publish_number
+    get :publish_backup
     get :reset_cart, format: :js
     get :read
     get :account_details
