@@ -97,7 +97,7 @@ html, body {
 }
 
 .cartTotal {
-    font-family: monospace;
+    /*font-family: monospace;*/
     display: block;
     overflow: hidden;
     /*margin-bottom: 10px;*/
