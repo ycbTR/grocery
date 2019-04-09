@@ -1,19 +1,26 @@
 <div class="container" style="margin-top: 100px;">
-<div class="text-center">
-  <h1> Ödemeyi tamamlamak için kartınızı okutunuz
-    <br> <small> <%= @order.order_display_text %> <br> <b>Toplam: ₺<%= @order.total %></b> </small> </h1>
-  <%= form_tag complete_orders_path, data: {method: :post}, class: 'autosubmit disable' do %>
-      <%= image_tag 'rfid.png', width: 200 %>
-      <%= hidden_field_tag :card, params[:card], id: 'card' %>
-      <% if params[:admin] %>
-          <%= hidden_field_tag :admin, params[:admin] %>
-          <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)) %>
-      <% end %>
-  <% end %>
-  <%= link_to 'Vazgeç', root_path, class: 'btn btn-default' %>
-  <%= content_for :links do %>
-      <li><%= link_to 'Yönetici Giriş', complete_orders_path(admin: 1), data: {method: :post}, class: '' %></li>
-  <% end %>
-</div>
-<%= render partial: '/shared/reader', locals: {auto_submit: true} %>
+  <div class="text-center">
+    <h1> Ödemeyi tamamlamak için kartınızı okutunuz</h1>
+    <hr>
+    <h3><b><%= @order.order_display_text %></b></h3>
+    <b class="cartTotal" style="font-size: 24px;
+        line-height: 20px;">Toplam: ₺ <%= @order.total %></b>
+    <hr>
+    <%= form_tag complete_orders_path, data: {method: :post}, class: 'autosubmit disable' do %>
+        <div class="readerPreview">
+          <%= image_tag 'rfid.png', width: 200 %>
+        </div>
+        <%= hidden_field_tag :card, params[:card], id: 'card' %>
+        <% if params[:admin] %>
+            <%= hidden_field_tag :admin, params[:admin] %>
+            <p>Ödemenin çekileceği üye hesabını seçiniz ve kartınızı okutunuz.</p>
+            <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)) %>
+        <% end %>
+    <% end %>
+    <%= link_to 'Vazgeç', root_path, class: 'btn btn-default marT20' %>
+    <%= content_for :links do %>
+        <li><%= link_to 'Yönetici Giriş', complete_orders_path(admin: 1), data: {method: :post}, class: '' %></li>
+    <% end %>
+  </div>
+  <%= render partial: '/shared/reader', locals: {auto_submit: true} %>
 </div>

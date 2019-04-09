@@ -27,7 +27,7 @@
       <div class="cartAction">
         <div class="cartTotal">
           <b class="pull-left f-s-16">Toplam</b>
-          <b class="pull-right f-s-16">₺<%= @order.total %></b>
+          <b class="pull-right f-s-16">₺ <%= @order.total %></b>
         </div>
         <%= form_tag complete_orders_path, method: :post do %>
             <%= submit_tag 'Ödeme Yap', class: 'btn btn-primary btn-block btn-flat btn-lg' %>
@@ -35,8 +35,22 @@
 
       </div>
   <% else %>
-      <h3>Sepetiniz boş</h3>
-  <% end %>
+      <h3>Sepetiniz Boş</h3>
+      <div class="scrollableArea marB30">
+     <div class="emptyCartContent">
+       <span><i class="fa fa-shopping-basket" style="font-size: 24px;"></i></span>
+       <span>&nbsp; Ürün seçiniz</span>
+     </div>
+      </div>
+      <div class="cartAction">
+        <div class="cartTotal">
+          <b class="pull-left f-s-16">Toplam</b>
+          <b class="pull-right f-s-16">₺ 0.0</b>
+        </div>
+        <%= form_tag complete_orders_path, method: :post do %>
+            <%= submit_tag 'Ödeme Yap', class: 'btn btn-primary btn-block btn-flat btn-lg', disabled: true %>
+        <% end %>
+      </div>  <% end %>
 </div><!--/.well -->
 
 <script type="text/javascript" charset="utf-8">

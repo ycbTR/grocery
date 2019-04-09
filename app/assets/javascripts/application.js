@@ -76,14 +76,14 @@ var loadingContainer;
 $(function () {
     // Toggle loading container when ajax call
     get_loading_container();
-    loadingContainer.ajaxStart(function (e) {
-        show_loading();
-    });
-
-    loadingContainer.ajaxStop(function (e) {
-        loadingContainer.hide();
-        $('#loaderMessage').html("");
-    });
+    // loadingContainer.ajaxStart(function (e) {
+    //     show_loading();
+    // });
+    //
+    // loadingContainer.ajaxStop(function (e) {
+    //     loadingContainer.hide();
+    //     $('#loaderMessage').html("");
+    // });
 
     $('form').on('submit', function () {
         get_loading_container();
