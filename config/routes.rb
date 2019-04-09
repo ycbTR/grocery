@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   root controller: :home, action: :index
 
+  resource :admin, controller: 'admin' do
+    get :auto_logout
+  end
+
   resource :home, controller: 'home' do
     match :login, via: [:get, :post]
     delete :logout

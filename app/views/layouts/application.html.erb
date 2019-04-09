@@ -17,7 +17,13 @@
     setInterval(function () {
       var dt = new Date();
       document.getElementById("datetime").innerHTML = dt.toLocaleString();
-    }, 1000)
+    }, 1000);
+
+    <% if @logged_in %>
+    setInterval(function () {
+      $.get('/admin/auto_logout.js')
+    }, 61000);
+    <% end %>
   </script>
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->

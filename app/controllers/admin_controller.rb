@@ -3,6 +3,12 @@ class AdminController < ApplicationController
   before_action :update_activity_time
   before_action :authorize_admin!
 
+
+
+  def auto_logout
+       render js: 'ok'
+  end
+
   def authorize_admin!
     if @current_account && @current_account.admin?
       # Valid admin login

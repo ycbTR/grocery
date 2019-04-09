@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
       flash[:error] = "Oturumunuz sona erdi. Tekrar giriş yapınız."
       session.delete :account_id
       session.delete :expires_at
-      redirect_to root_path and return
+      respond_to do |format|
+        format.html { redirect_to root_path and return }
+        format.js { render js: 'window.location.reload();' and return }
+      end
     end
   end
 
@@ -50,6 +53,8 @@ class ApplicationController < ActionController::Base
   end
 
   def update_activity_time
-    session[:expires_at] = 2.minutes.from_now
+    if params[:action] != "auto_logout"
+      session[:expires_at] = 2.minutes.from_now
+    end
   end
 end

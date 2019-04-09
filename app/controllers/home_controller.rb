@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   before_action :account_required!, only: [:account_details]
+  before_action :session_expiry, only: [:account_details]
+  before_action :update_activity_time, only: [:account_details]
 
   def index
     @products = Product.includes(:image_attachment, :image_blob).active.order('position').to_a
