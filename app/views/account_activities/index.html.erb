@@ -12,7 +12,7 @@
       <th colspan="5">
         <%= search_form_for @q, class: 'form-inline' do |f| %>
         <%= f.search_field :account_name_cont, placeholder: 'İsim', class: 'form-control' %>
-        <%= f.search_field :created_at_cont, placeholder: 'Tarih', data: {provide: 'datepicker'}, value: (I18n.localize(@date) rescue ''), autocomplete: 'off', class: 'form-control' %>
+        <%= f.search_field :created_at_cont, placeholder: 'Tarih', value: (I18n.localize(@date) rescue ''), autocomplete: 'off', class: 'form-control datepicker' %>
         <label><%= f.check_box :amount_gteq, {class: 'check form-control'}, -999999999, nil %> Tümü</label>
         <label><%= f.check_box :amount_lt,  {class: 'check form-control'}, 0, 9999999  %> Harcamalar</label>
         <label><%= f.check_box :amount_gt, {class: 'check form-control'}, 0, -9999999 %> Yüklemeler</label>

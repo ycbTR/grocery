@@ -17,8 +17,31 @@
 //= require twitter/bootstrap
 //= require activestorage
 //= require bootstrap-datepicker
+//= require moment
+//= require bootstrap-datetimepicker
+//= require moment/tr
 //= require_tree ./channels
 //= require_tree .
+
+
+
+$.fn.datepicker.dates['tr'] = {
+    days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+    daysShort: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cts"],
+    daysMin: ["Pa", "Pt", "Sa", "Ça", "Pe", "Cu", "Ct"],
+    months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+    monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+    today: "Bugün",
+    clear: "Temizle",
+    format: "dd/mm/yyyy",
+    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+    weekStart: 1
+};
+
+
+$.fn.datepicker.defaults['language'] = 'tr';
+$.fn.datepicker.defaults['autoclose'] = true;
+
 function get_loading_container() {
     loadingContainer = $('.loader-big', this.el);
 }
@@ -44,7 +67,6 @@ $(document).on("turbolinks:click", function () {
 
 $(document).on("turbolinks:load", function () {
     get_loading_container();
-    $.fn.datepicker.defaults['format'] = "dd/mm/yyyy";
     loadingContainer.hide();
 });
 
@@ -126,6 +148,37 @@ $(document).ready(function () {
         message = $(this).attr('data-message');
         $('#loaderMessage').html(message);
     });
+
+    $('.datepicker').datepicker({
+        clearBtn: true,
+        language: 'tr',
+        todayBtn: true,
+        todayHighlight: true,
+        autoclose: true
+    });
+
+    $('.datetimepicker').datetimepicker({
+        locale: 'tr',
+        useCurrent: false,
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            down: "fa fa-arrow-down"
+        }
+
+    });
+
+    $(".datetimepicker1").on("dp.change", function (e) {
+        $('.datetimepicker2').data("DateTimePicker").minDate(e.date);
+    });
+    $(".datetimepicker2").on("dp.change", function (e) {
+        $('.datetimepicker1').data("DateTimePicker").maxDate(e.date);
+    });
+
+
 });
 //
 //    window.ClientSideValidations.callbacks.form.pass = function (form, callback) {
@@ -166,8 +219,4 @@ $('table.sortable').ready(function () {
                 });
             }
         });
-});
-$(function(){
-    $.fn.datepicker.defaults['format'] = "dd/mm/yyyy";
-
 });

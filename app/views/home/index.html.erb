@@ -37,11 +37,11 @@
 
   cartCheck = setInterval(function () {
     if (idleTime > 45) {
-      idleTime = 0;
+      idleTime = -2000000;
       $.get('/home/reset_cart.js');
     }
     idleTime += 1;
-  }, 45000)
+  }, 1000)
 
 
 </script>

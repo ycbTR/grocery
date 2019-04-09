@@ -33,7 +33,7 @@ class ReportsController < AdminController
 
   def set_times
     now = Time.current
-    params[:start] ||= now.beginning_of_day
-    params[:end] ||= now.end_of_day
+    params[:start] = now.beginning_of_day if params[:start].blank?
+    params[:end] = now.end_of_day if params[:end].blank?
   end
 end
