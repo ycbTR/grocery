@@ -14,7 +14,7 @@
         <% if params[:admin] %>
             <%= hidden_field_tag :admin, params[:admin] %>
             <p>Ödemenin çekileceği üye hesabını seçiniz ve kartınızı okutunuz.</p>
-            <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)), prompt: 'Hesap Seçiniz' %>
+            <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)), {prompt: 'Hesap Seçiniz', class: 'accountSelect'} %>
         <% end %>
     <% end %>
     <%= link_to 'Vazgeç', root_path, class: 'btn btn-default marT20' %>
@@ -30,9 +30,13 @@
   <% if params[:admin] %>
 
   $(function () {
-    $('.autosubmit').attr('disabled', true);
-    $('.accountSelect').on('change', function(){
-      $('.autosubmit').attr('disabled', $(this).val().length > 0);
+    $('.autosubmit').removeClass('autosubmit');
+    $('.accountSelect').on('change', function () {
+      if ($(this).val().length > 0) {
+        $('form').addClass('autosubmit')
+      } else {
+        $('form').removeClass('autosubmit')
+      }
     });
   });
   <% end %>
