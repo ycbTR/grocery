@@ -75,7 +75,7 @@
                 <li><%= link_to "Bakiye Yükle", new_account_activity_path %></li>
             <% end %>
             <li><%= link_to "#{@current_account.name} (Hesabım)", account_details_home_path %></li>
-            <li><%= link_to "Çıkış", logout_home_path, data: {method: :delete}, class: 'pull-right' %></li>
+            <li><%= link_to "Çıkış", logout_home_path, data: {method: :delete}, class: 'pull-right', onclick: 'show_loading();' %></li>
         <% else %>
             <li><%= link_to "Giriş", login_home_path %></li>
         <% end %>
