@@ -1,12 +1,22 @@
 #!/bin/bash
 
+[ -d "$DIR" ] && echo "Yes"
 
 while true
 do
 usbName=$(ls /media/pi)
+hasFile=$(ls ~/Downloads/)
 
-echo $usbName
-mv ~/Downloads/*  "/media/pi/$usbName/"
+if [ -z "$usbName" ] || [ -z "$hasFile" ]
+then
+   echo "empty"
+else
+    curl "http://127.0.0.1:3000/home/publish_backup?status=started"
+    echo $usbName
+    mv ~/Downloads/*  "/media/pi/$usbName/"
+    curl "http://127.0.0.1:3000/home/publish_backup?status=finished"
+fi
+
 
 sleep 1
 

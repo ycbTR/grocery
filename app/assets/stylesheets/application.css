@@ -21,7 +21,6 @@ html, body {
     background: #fafafa;
 }
 .container {
-  overflow: scroll;
   padding-bottom: 50px;
   margin-top: 30px;
   background: white;
