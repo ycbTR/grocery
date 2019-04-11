@@ -29,12 +29,12 @@
           <b class="pull-left f-s-16">Toplam</b>
           <b class="pull-right f-s-16">₺ <%= @order.total %></b>
         </div>
-        <%= form_tag complete_orders_path, method: :post do %>
+        <%= form_tag complete_orders_path, method: :post, class: 'autosubmit disable' do %>
             <%= submit_tag 'Ödeme Yap', class: 'btn btn-primary btn-block btn-flat btn-lg' %>
         <% end %>
 
       </div>
-  <% else %>
+    <% else %>
       <h3>Sepetiniz Boş</h3>
       <div class="scrollableArea marB30">
      <div class="emptyCartContent">
