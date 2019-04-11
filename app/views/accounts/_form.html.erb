@@ -3,8 +3,7 @@
     <% if @account.errors.any? %>
         <div id="error_expl" class="panel panel-danger">
           <div class="panel-heading">
-            <h3 class="panel-title"><%= pluralize(@account.errors.count, "error") %> prohibited this account from being
-              saved:</h3>
+            <h3 class="panel-title"><%= @account.errors.count %> hata var:</h3>
           </div>
           <div class="panel-body">
             <ul>
@@ -19,54 +18,57 @@
     <div class="form-group">
       <%= f.label :name, t(:account_name), :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :name, :class => 'form-control' %>
+        <%= f.text_field :name, :class => 'form-control', autocomplete: 'off' %>
+        <%= f.error_span(:name) %>
       </div>
-      <%= f.error_span(:name) %>
     </div>
     <div class="form-group">
       <%= f.label :card, t(:card), :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :card, :class => 'form-control', id: 'card' %>
+        <%= f.text_field :card, :class => 'form-control', id: 'card', autocomplete: 'off' %>
+        <%= f.error_span(:card) %>
       </div>
-      <%= f.error_span(:card) %>
     </div>
 
     <% if @account.new_record? %>
         <div class="form-group">
           <%= f.label :balance, 'Bakiye', :class => 'control-label col-lg-2' %>
           <div class="col-lg-10">
-            <%= f.text_field :balance, :class => 'form-control', id: 'card' %>
+            <%= f.text_field :balance, value: f.object.balance.to_f, autocomplete: 'off', :class => 'form-control', id: 'card' %>
+            <%= f.error_span(:balance) %>
           </div>
-          <%= f.error_span(:balance) %>
         </div>
     <% end %>
 
     <div class="form-group">
       <%= f.label :credit_limit, t(:credit_limit), :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.text_field :credit_limit, :class => 'form-control' %>
+        <%= f.text_field :credit_limit, value: f.object.credit_limit.to_f, autocomplete: 'off', :class => 'form-control' %>
+        <%= f.error_span(:credit_limit) %>
       </div>
-      <%= f.error_span(:credit_limit) %>
     </div>
     <div class="form-group">
       <%= f.label :admin, t(:admin), :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
         <%= f.check_box :admin, :class => '' %>
+        <%= f.error_span(:admin) %>
       </div>
-      <%= f.error_span(:admin) %>
     </div>
 
     <div class="form-group">
       <%= f.label :cashier, 'Bakiye Yükleyebilir', :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
         <%= f.check_box :cashier, :class => '' %>
+        <%= f.error_span(:cashier) %>
       </div>
-      <%= f.error_span(:cashier) %>
     </div>
 
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <%= f.submit 'Kaydet', :class => 'btn btn-primary' %>
+        <% if f.object.new_record? %>
+            <%= f.submit 'Kaydet ve Yeni Ekle', :class => 'btn btn-primary' %>
+        <% end %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                     accounts_path, :class => 'btn btn-default' %>
       </div>

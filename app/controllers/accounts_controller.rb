@@ -39,7 +39,12 @@ class AccountsController < AdminController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_path, notice: 'Hesap oluşturuldu' }
+        next_path = if params[:commit] == "Kaydet ve Yeni Ekle"
+                      new_account_path
+                    else
+                      accounts_path
+                    end
+        format.html { redirect_to next_path, notice: 'Hesap oluşturuldu' }
         format.json { render :show, status: :created, location: @account }
       else
         format.html { render :new }

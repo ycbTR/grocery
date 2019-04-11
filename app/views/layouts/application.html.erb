@@ -52,10 +52,10 @@
 </div>
 
 <div class="<%= @logged_in ? 'container' : 'mainContainer' %>">
+  <%= bootstrap_flash %>
   <%= yield %>
 </div> <!-- /container -->
 <div class="footer">
-  <%= bootstrap_flash %>
   <div class="">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
       <span class="icon-bar"></span>

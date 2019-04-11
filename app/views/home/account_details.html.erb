@@ -1,4 +1,4 @@
-<h2><%= @account.name %> <small class="">Bakiye: ₺<%= @account.balance.to_f %></small></h2>
+<h2><%= @account.name %> <small class="balanceText <%= @account.balance_health %>">Bakiyeniz: ₺ <%= @account.balance.to_f %></small></h2>
 
 <%- model_class = AccountActivity -%>
 <div class="page-header">

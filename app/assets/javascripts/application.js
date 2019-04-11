@@ -52,8 +52,8 @@ function hide_loading() {
 }
 
 setInterval(function () {
-    $('.alert').fadeOut();
-}, 5000);
+    $('.alert').slideUp();
+}, 15000);
 
 setInterval(function () {
     hide_loading()

@@ -1,42 +1,42 @@
-<%= form_for @account_activity, :html => { :class => "form-horizontal account_activity" } do |f| %>
+<%= form_for @account_activity, :html => {:class => "form-horizontal account_activity"} do |f| %>
 
-  <% if @account_activity.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@account_activity.errors.count, "error") %> prohibited this account_activity from being saved:</h3>
+    <% if @account_activity.errors.any? %>
+        <div id="error_expl" class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= @account_activity.errors.count %> hata var:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% @account_activity.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :amount, :class => 'control-label col-lg-2', required: true %>
+      <div class="col-lg-10">
+        <%= f.text_field :amount, :class => 'form-control', placeholder: 'Örnek: 15.50' %>
+        <span>Bakiye silmek için negatif tutar girebilirsiniz.</span>
+        <%= f.error_span(:amount) %>
       </div>
-      <div class="panel-body">
-        <ul>
-        <% @account_activity.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
+    </div>
+    <div class="form-group">
+      <%= f.label :account_id, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.select :account_id, options_for_select(Account.active.pluck(:name, :id), selected: f.object.account_id), {prompt: 'Hesap Seçiniz veya kart okutunuz'}, id: 'accountID', class: 'form-control' %>
+        <%= f.error_span(:account_id) %>
       </div>
     </div>
-  <% end %>
 
-  <div class="form-group">
-    <%= f.label :amount, :class => 'control-label col-lg-2', required: true %>
-    <div class="col-lg-10">
-      <%= f.text_field :amount, :class => 'form-control', placeholder: 'Örnek: 15.50' %>
-      <span>Bakiye silmek için negatif tutar girebilirsiniz.</span>
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit 'Bakiye Yükle', :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    (params[:return_to] || account_activities_path), :class => 'btn btn-default' %>
+      </div>
     </div>
-    <%=f.error_span(:amount) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :account_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.select :account_id, options_for_select(Account.active.pluck(:name, :id), selected: f.object.account_id), {prompt: 'Hesap Seçiniz veya kart okutunuz'}, id: 'accountID', class: 'form-control' %>
-    </div>
-    <%=f.error_span(:account_id) %>
-  </div>
-
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit 'Bakiye Yükle', :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                (params[:return_to] || account_activities_path), :class => 'btn btn-default' %>
-    </div>
-  </div>
 
 <% end %>
