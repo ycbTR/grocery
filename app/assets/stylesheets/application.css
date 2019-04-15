@@ -138,6 +138,7 @@ html, body {
     height: 172px;
     background: #ffffff;
     margin: 15px;
+    box-shadow: 5px 10px 15px -5px #777777;
 }
 
 .loader-big {
