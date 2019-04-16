@@ -14,6 +14,11 @@ class Order < ApplicationRecord
 
   def after_complete
     self.line_items.each(&:decrease_units)
+    begin
+      Printer.print(self)
+    rescue
+      self.update_column(:printed_count, self.printed_count.to_i + 1)
+    end
   end
 
   def update_account

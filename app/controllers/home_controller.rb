@@ -4,9 +4,6 @@ class HomeController < ApplicationController
   before_action :update_activity_time, only: [:account_details]
 
   def index
-
-    Printer.print(3)
-
     @products = Product.includes(:image_attachment, :image_blob).active.order('position').to_a
     @order = current_order(false)
     @products_to_hide = []
