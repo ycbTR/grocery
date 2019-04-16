@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module GroceryRpi
   class Application < Rails::Application
+    require 'grocery'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.time_zone = 'Istanbul'
