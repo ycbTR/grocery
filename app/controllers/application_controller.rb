@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
 
   def update_activity_time
     if params[:action] != "auto_logout"
-      session[:expires_at] = 2.minutes.from_now
+      session[:expires_at] = 5.minutes.from_now
     end
   end
 end

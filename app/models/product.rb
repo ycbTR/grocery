@@ -13,7 +13,7 @@ class Product < ApplicationRecord
   end
 
   def check_stock
-    if self.count_on_hand_changed?
+    if !self.new_record? and self.count_on_hand_changed?
       create_stock
     end
   end
