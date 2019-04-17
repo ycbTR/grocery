@@ -4,7 +4,9 @@ class StocksController < AdminController
   # GET /stocks
   # GET /stocks.json
   def index
-    @stocks = Stock.all
+    params[:q] ||= {}
+    @q = Stock.ransack(params[:q])
+    @stocks = @q.result(distinct: true).page(params[:page])
   end
 
   # GET /stocks/1
