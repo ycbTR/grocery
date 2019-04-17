@@ -19,7 +19,11 @@ class Product < ApplicationRecord
   end
 
   def create_stock
-    self.stocks.create(stock: (self.count_on_hand.to_f - self.count_on_hand_was.to_f), account_id: Account.current.try(:id))
+    if self.count_on_hand_changed?
+      self.stocks.create(stock: (self.count_on_hand.to_f - self.count_on_hand_was.to_f), account_id: Account.current.try(:id))
+    else
+      self.stocks.create(stock: (self.count_on_hand.to_f), account_id: Account.current.try(:id))
+    end
   end
 
 end
