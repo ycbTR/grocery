@@ -77,4 +77,10 @@ class Order < ApplicationRecord
     end.to_sentence
   end
 
+  def grouped_items
+    line_items.not_canceled.group(:product_id).pluck('sum(total), count(*), product_id').collect do |li|
+      {name: Product.where(id: li[2]).pluck(:name).first, count: li[1], total: li[0]}
+    end
+  end
+
 end

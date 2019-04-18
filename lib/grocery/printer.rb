@@ -22,8 +22,12 @@ module Printer
   # printf "${F_VDOBLE}Esto es...\n"
 
   def order_text(order)
+    item_text = ""
+    order.grouped_items.each do |h|
+      item_text+="#{h[:count]} #{h[:name]} #{h[:total]}TL\n"
+    end
     val=<<TEXT
-#{order.order_display_text}
+#{item_text}
 Toplam: #{ order.total }TL
 #{order.account.try(:name)}
 Bakiye: #{order.account.balance.to_f}TL
@@ -34,13 +38,13 @@ TEXT
 
 
   def print_z_report(product_report, orders, total, balance_added, start_time, end_time)
-    val = "    Z RAPORU"
+    val = "      Z RAPORU"
     val += "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
-    val += "\nÜrün|Adet|Tutar"
+    val += "\n\nÜrün|Adet|Tutar"
     product_report.each do |name, h|
       val += "\n#{name}|#{h[:count]}|#{h[:total]}TL"
     end
-    val += "\nSipariş sayısı: #{orders.count}"
+    val += "\n\nSipariş sayısı: #{orders.count}"
     val += "\nToplam: #{total.to_f}TL"
     val += "\nYüklemeler: #{balance_added.to_f}TL"
     print(val)
