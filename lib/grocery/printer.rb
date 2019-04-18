@@ -9,22 +9,23 @@ module Printer
   # https://www.raspberrypi.org/forums/viewtopic.php?t=111669
 
   def print(object)
-    val = if object.is_a? Order
+    text = if object.is_a? Order
             order_text(object)
           else
             object
           end
     # system("echo -e '#{text}' | lp ")
-    puts system("echo '#{text}' | lp")
+    puts system("echo -e '#{text}' | lp")
   end
 
 
   def order_text(order)
     val=<<TEXT
-#{order_display_text}
-    Toplam: ₺#{ order.total }
-    #{order.account.try(:name)} bakiyeniz ₺#{order.account.balance.to_f}
-    #{order.completed_at} - P:#{order.printed_count}#:#{order.id}
+#{order.order_display_text}
+Toplam: #{ order.total }TL
+#{order.account.try(:name)}
+Bakiyeniz: #{order.account.balance.to_f}TL
+#{I18n.localize(order.completed_at, format: :custom)} - P:#{order.printed_count}#:#{order.id}
 TEXT
     val
   end
