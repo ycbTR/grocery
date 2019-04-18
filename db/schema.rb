@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_204502) do
+ActiveRecord::Schema.define(version: 2019_04_16_211741) do
 
   create_table "account_activities", force: :cascade do |t|
     t.integer "order_id"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_204502) do
     t.datetime "updated_at", null: false
     t.string "state"
     t.integer "canceled_by"
+    t.integer "printed_count"
     t.index ["state", "completed_at"], name: "o_i_1"
   end
 
@@ -91,8 +92,9 @@ ActiveRecord::Schema.define(version: 2019_04_07_204502) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
-    t.integer "count_on_hand"
-    t.boolean "active"
+    t.integer "count_on_hand", default: 0
+    t.boolean "active", default: true
+    t.index ["active", "count_on_hand"], name: "pi_2"
     t.index ["deleted_at"], name: "pr_i_2"
     t.index ["name"], name: "pr_i_1"
   end

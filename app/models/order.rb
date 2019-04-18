@@ -14,6 +14,10 @@ class Order < ApplicationRecord
 
   def after_complete
     self.line_items.each(&:decrease_units)
+    print
+  end
+
+  def print
     begin
       Printer.print(self)
     rescue

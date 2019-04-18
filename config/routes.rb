@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     end
     member do
       post :cancel
+      post :print
     end
   end
   resources :accounts

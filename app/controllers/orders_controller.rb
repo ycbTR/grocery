@@ -1,10 +1,11 @@
 class OrdersController < AdminController
-  skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item, :show]
+  skip_before_action :authorize_admin!, only: [:populate, :complete, :remove_item, :show, :print]
   skip_before_action :session_expiry, only: [:populate, :complete, :remove_item, :show]
   skip_before_action :update_activity_time, only: [:populate, :complete, :remove_item, :show]
 
   before_action :account_required!, only: [:show]
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :cancel]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :cancel, :print]
+  before_action :authorize_admin_cashier!, only: [:print]
 
   # GET /orders
   # GET /orders.json
@@ -157,6 +158,12 @@ class OrdersController < AdminController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def print
+    @order.print
+    flash[:success] = "Yazdırılıyor..."
+    redirect_to order_path(@order)
   end
 
   def cancel

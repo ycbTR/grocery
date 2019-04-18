@@ -11,6 +11,10 @@ class Account < ApplicationRecord
     where(deleted_at: nil)
   end
 
+  def can_print?
+    admin? or cashier?
+  end
+
   def enough_balance?(amount)
     (self.balance.to_f + self.credit_limit.to_f) >= amount.to_f
   end
