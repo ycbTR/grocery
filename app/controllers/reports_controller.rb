@@ -27,6 +27,10 @@ class ReportsController < AdminController
       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
     end
 
+    if params[:print]
+      print_z_report(@product_report, @orders, @total, @balance_added)
+    end
+
   end
 
   private

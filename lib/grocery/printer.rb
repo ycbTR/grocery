@@ -10,10 +10,10 @@ module Printer
 
   def print(object)
     text = if object.is_a? Order
-            order_text(object)
-          else
-            object
-          end
+             order_text(object)
+           else
+             object
+           end
     # system("echo -e '#{text}' | lp ")
     puts system("echo '#{text}' | lp")
   end
@@ -30,5 +30,17 @@ Bakiye: #{order.account.balance.to_f}TL
 #{order.completed_at.strftime("%d/%m,%H:%M")} #{order.printed_count}:#{order.id}
 TEXT
     val
+  end
+
+
+  def print_z_report(product_report, orders, total, balance_added)
+    val = "Ürün Adet Tutar"
+    product_report.each do |name, h|
+      val += "\n #{name} #{h[:count]} #{h[:total]}TL"
+    end
+    val += "\n Sipariş sayısı: #{orders.count}"
+    val += "\n Toplam: #{total.to_f}TL"
+    val += "\n Yüklemeler: #{balance_added.to_f}TL"
+    print val
   end
 end
