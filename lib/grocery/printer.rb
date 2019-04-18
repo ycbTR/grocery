@@ -35,8 +35,8 @@ TEXT
 
   def print_z_report(product_report, orders, total, balance_added, start_time, end_time)
     val = "    Z RAPORU"
-    val = "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
-    val += "\nÜrün | Adet | Tutar"
+    val += "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
+    val += "\nÜrün|Adet|Tutar"
     product_report.each do |name, h|
       val += "\n#{name}|#{h[:count]}|#{h[:total]}TL"
     end
