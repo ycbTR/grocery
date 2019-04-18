@@ -28,7 +28,7 @@ class ReportsController < AdminController
     end
 
     if params[:print]
-      print_z_report(@product_report, @orders, @total, @balance_added)
+      Printer.print_z_report(@product_report, @orders, @total, @balance_added)
     end
 
   end
