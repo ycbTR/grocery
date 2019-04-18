@@ -1,26 +1,27 @@
 <%- model_class = Account -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
   <%= link_to t('.new', :default => t("helpers.links.new")),
-  new_account_path,
-  :class => 'btn btn-primary' %>
+              new_account_path,
+              :class => 'btn btn-primary' %>
   <div class="clearfix"></div>
 </div>
 <table class="table table-striped">
   <thead>
-    <th colspan="7">
-      <%= search_form_for @q, class: 'form-inline' do |f| %>
-      <%= f.search_field :name_cont, placeholder: 'İsim', class: 'form-control' %>
-      <% if params[:q][:card_eq].present? %>
-      <%= f.search_field :card_eq, placeholder: 'Kart#', class: 'form-control' %>
-      <% end %>
-      <%= f.select :balance_lt, options_for_select([ ['Tümü', nil], ['Borçlu olanlar', '0'] ], selected: params[:q][:balance_lt]), {}, class: 'form-control' %>
-      <%= f.submit 'Ara', class: 'btn btn-default' %>
-      <% end %>
-      <%= search_form_for @q, class: 'autosubmit hide' do |f| %>
-      <%= f.search_field :card_eq, placeholder: 'Kart#', class: 'form-control', id: 'card' %>
-      <% end %>
-    </th>
+  <th colspan="7">
+    <%= search_form_for @q, class: 'form-inline' do |f| %>
+        <%= f.search_field :name_cont, placeholder: 'İsim', class: 'form-control' %>
+        <% if params[:q][:card_eq].present? %>
+            <%= f.search_field :card_eq, placeholder: 'Kart#', class: 'form-control' %>
+        <% end %>
+        <%= f.select :balance_lt, options_for_select([['Tümü', nil], ['Borçlu olanlar', '0']], selected: params[:q][:balance_lt]), {}, class: 'form-control' %>
+        <%= f.submit 'Ara', class: 'btn btn-default' %>
+    <% end %>
+    <%= search_form_for @q, class: 'autosubmit hide' do |f| %>
+        <%= f.search_field :card_eq, placeholder: 'Kart#', class: 'form-control', id: 'card' %>
+        <%= link_to 'Filtreyi kaldır', accounts_path %>
+    <% end %>
+  </th>
   </th>
 
 
@@ -32,38 +33,38 @@
     <th><%= sort_link @q, :admin, model_class.human_attribute_name(:admin) %></th>
     <th><%= sort_link @q, :cashier, 'Bakiye yükleyebilir' %></th>
     <th><%= t :created_at %></th>
-    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    <th><%= t '.actions', :default => t("helpers.actions") %></th>
   </tr>
-</thead>
-<tbody>
+  </thead>
+  <tbody>
   <% @accounts.each do |account| %>
-  <tr>
-    <td><%= account.name %></td>
-    <td><%= account.card %></td>
-    <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
-    <td>₺<%= account.credit_limit.to_f %></td>
-    <td><%= yes_no account.admin %></td>
-    <td><%= yes_no account.cashier %></td>
-    <td><%=l account.created_at %></td>
-    <td>
-      <%= link_to 'Bakiye Yükle',
-      new_account_activity_path(account_id: account.id, return_to: accounts_path), :class => 'btn btn-primary btn-xs' %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),
-      edit_account_path(account), :class => 'btn btn-default btn-xs' %>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-      account_path(account),
-      :method => :delete,
-      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-      :class => 'btn btn-xs btn-danger' %>
-    </td>
-  </tr>
+      <tr>
+        <td><%= account.name %></td>
+        <td><%= account.card %></td>
+        <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
+        <td>₺<%= account.credit_limit.to_f %></td>
+        <td><%= yes_no account.admin %></td>
+        <td><%= yes_no account.cashier %></td>
+        <td><%= l account.created_at %></td>
+        <td>
+          <%= link_to 'Bakiye Yükle',
+                      new_account_activity_path(account_id: account.id, return_to: accounts_path), :class => 'btn btn-primary btn-xs' %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_account_path(account), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      account_path(account),
+                      :method => :delete,
+                      :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
   <% end %>
-</tbody>
+  </tbody>
 </table>
-<%= paginate @accounts,:theme => 'twitter-bootstrap-3' %>
+<%= paginate @accounts, :theme => 'twitter-bootstrap-3' %>
 <br>
 <%= page_entries_info @accounts %>
 <br>
 <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
-Excel'e aktar
+    Excel'e aktar
 <% end %>
