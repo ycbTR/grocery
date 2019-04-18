@@ -39,9 +39,9 @@ TEXT
     product_report.each do |name, h|
       val += "\n #{name} #{h[:count]} #{h[:total]}TL"
     end
-    val += "\n Sipariş sayısı: #{orders.count}"
-    val += "\n Toplam: #{total.to_f}TL"
-    val += "\n Yüklemeler: #{balance_added.to_f}TL"
+    val += "\nSipariş sayısı: #{orders.count}"
+    val += "\nToplam: #{total.to_f}TL"
+    val += "\nYüklemeler: #{balance_added.to_f}TL"
     print(val)
   end
 end
