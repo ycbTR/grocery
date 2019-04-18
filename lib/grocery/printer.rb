@@ -15,9 +15,11 @@ module Printer
             object
           end
     # system("echo -e '#{text}' | lp ")
-    puts system("echo -e '#{text}' | lp")
+    puts system("echo '#{text}' | lp")
   end
 
+
+  # printf "${F_VDOBLE}Esto es...\n"
 
   def order_text(order)
     val=<<TEXT
