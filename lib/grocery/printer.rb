@@ -27,17 +27,18 @@ module Printer
 Toplam: #{ order.total }TL
 #{order.account.try(:name)}
 Bakiye: #{order.account.balance.to_f}TL
-#{order.completed_at.strftime("%d/%m,%H:%M")} #{order.printed_count}:#{order.id}
+#{order.completed_at.strftime("%d/%m %H:%M")} #{order.printed_count}:#{order.id}
 TEXT
     val
   end
 
 
   def print_z_report(product_report, orders, total, balance_added, start_time, end_time)
-    val = "#{start_time.strftime("%d/%m,%H:%M")}-#{end_time.strftime("%d/%m,%H:%M")}"
-    val += "\nÜrün Adet Tutar"
+    val = "    Z RAPORU"
+    val = "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
+    val += "\nÜrün | Adet | Tutar"
     product_report.each do |name, h|
-      val += "\n #{name} #{h[:count]} #{h[:total]}TL"
+      val += "\n#{name}|#{h[:count]}|#{h[:total]}TL"
     end
     val += "\nSipariş sayısı: #{orders.count}"
     val += "\nToplam: #{total.to_f}TL"
