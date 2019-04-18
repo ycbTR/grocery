@@ -26,8 +26,8 @@ module Printer
 #{order.order_display_text}
 Toplam: #{ order.total }TL
 #{order.account.try(:name)}
-Bakiyeniz: #{order.account.balance.to_f}TL
-#{I18n.localize(order.completed_at, format: :custom)} - P:#{order.printed_count}#:#{order.id}
+Bakiye: #{order.account.balance.to_f}TL
+#{order.completed_at.strftime("%d/%m,%H:%M")} #{order.printed_count}:#{order.id}
 TEXT
     val
   end

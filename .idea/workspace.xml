@@ -44,8 +44,8 @@
       <file leaf-file-name="printer.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/grocery/printer.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="19" column="20" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="253">
+              <caret line="28" column="6" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -1110,7 +1110,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92386000" />
+    <option name="totallyTimeSpent" value="92725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="752" extended-state="6" />
@@ -1520,8 +1520,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/grocery/printer.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="19" column="20" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="253">
+          <caret line="28" column="6" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
           <folding />
         </state>
       </provider>
