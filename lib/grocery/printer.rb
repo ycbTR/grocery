@@ -33,14 +33,15 @@ TEXT
   end
 
 
-  def print_z_report(product_report, orders, total, balance_added)
-    val = "Ürün Adet Tutar"
+  def print_z_report(product_report, orders, total, balance_added, start_time, end_time)
+    val = "#{start_time.strftime("%d/%m,%H:%M")}-#{end_time.strftime("%d/%m,%H:%M")}"
+    val += "\nÜrün Adet Tutar"
     product_report.each do |name, h|
       val += "\n #{name} #{h[:count]} #{h[:total]}TL"
     end
     val += "\n Sipariş sayısı: #{orders.count}"
     val += "\n Toplam: #{total.to_f}TL"
     val += "\n Yüklemeler: #{balance_added.to_f}TL"
-    print val
+    print(val)
   end
 end
