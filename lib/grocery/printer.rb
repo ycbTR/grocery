@@ -14,7 +14,8 @@ module Printer
           else
             object
           end
-    system("echo -e '#{text}' > /dev/ttyUSB0")
+    # system("echo -e '#{text}' | lp ")
+    puts system("echo '#{text}' | lp")
   end
 
 
