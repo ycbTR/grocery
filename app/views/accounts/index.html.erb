@@ -16,10 +16,12 @@
         <% end %>
         <%= f.select :balance_lt, options_for_select([['Tümü', nil], ['Borçlu olanlar', '0']], selected: params[:q][:balance_lt]), {}, class: 'form-control' %>
         <%= f.submit 'Ara', class: 'btn btn-default' %>
+        <% if params[:q][:card_eq].present? %>
+          <%= link_to 'Filtreyi kaldır', accounts_path %>
+        <% end %>
     <% end %>
     <%= search_form_for @q, class: 'autosubmit hide' do |f| %>
         <%= f.search_field :card_eq, placeholder: 'Kart#', class: 'form-control', id: 'card' %>
-        <%= link_to 'Filtreyi kaldır', accounts_path %>
     <% end %>
   </th>
   </th>
