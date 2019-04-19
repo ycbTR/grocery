@@ -19,9 +19,10 @@ class Order < ApplicationRecord
 
   def print
     begin
+      self.update_column(:printed_count, self.printed_count.to_i + 1)
       Printer.print(self)
     rescue
-      self.update_column(:printed_count, self.printed_count.to_i + 1)
+
     end
   end
 
