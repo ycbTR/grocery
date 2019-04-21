@@ -48,18 +48,28 @@
       </div>
     </div>
     <div class="form-group">
-      <%= f.label :admin, t(:admin), :class => 'control-label col-lg-2' %>
+      <%= f.label :admin, "Yönetici", :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
         <%= f.check_box :admin, :class => '' %>
         <%= f.error_span(:admin) %>
+        <span> (Tam yetki) </span>
       </div>
     </div>
 
     <div class="form-group">
-      <%= f.label :cashier, 'Bakiye Yükleyebilir', :class => 'control-label col-lg-2' %>
+      <%= f.label :second_admin, 'Nöbetçi Yönetici', :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.check_box :second_admin, :class => '' %>
+        <%= f.error_span(:second_admin) %>
+        <span> (Sipariş işlemleri (Yeni, İptal), Z Raporu, Bakiye işlemleri) </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :cashier, 'Mutfak nöbetçi', :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
         <%= f.check_box :cashier, :class => '' %>
         <%= f.error_span(:cashier) %>
+        <span>(Bakiye yükleyebilir, başkası adına sipariş oluşturabilir)</span>
       </div>
     </div>
 

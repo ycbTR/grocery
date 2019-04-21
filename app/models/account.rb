@@ -11,8 +11,20 @@ class Account < ApplicationRecord
     where(deleted_at: nil)
   end
 
+
+  def has_special_role?
+    admin? or second_admin? or cashier?
+  end
   def can_print?
     admin? or cashier?
+  end
+
+  def can_manage_order?
+    can_cancel?
+  end
+
+  def can_cancel?
+    admin? or second_admin?
   end
 
   def enough_balance?(amount)

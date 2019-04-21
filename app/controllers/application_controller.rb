@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_account
   # rescue_from Exception, with: :rescued_request
+  rescue_from Grocery::AccessDenied, with: :redirect_to_root
 
+
+  def redirect_to_root
+    flash[:error] = "Yetkiniz yok"
+    redirect_to root_path and return
+  end
 
   def session_expiry
     get_session_time_left

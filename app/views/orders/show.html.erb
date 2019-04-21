@@ -12,7 +12,7 @@
             <small class="label label-danger"><%= Account.where(id: @order.canceled_by).pluck(:name).to_sentence %>
               Tarafından İptal Edilmiş
             </small>
-        <% elsif @current_account.admin? %>
+        <% elsif @current_account.can_cancel? %>
             <%= link_to 'Siparişi İptal Et',
                         cancel_order_path(@order),
                         :method => :post,
@@ -48,7 +48,7 @@
           <td>
             <%= li.product.try(:name) %>
             <% unless li.canceled? %>
-                <%= link_to 'Ürünü İptal Et', cancel_line_item_path(li), data: {method: :post, confirm: 'Emin misiniz?'}, class: 'btn btn-default btn-xs pull-left' if @current_account.admin? %>
+                <%= link_to 'Ürünü İptal Et', cancel_line_item_path(li), data: {method: :post, confirm: 'Emin misiniz?'}, class: 'btn btn-default btn-xs pull-left' if @current_account.can_cancel? %>
             <% else %>
                 <span class="label label-danger pull-left">İptal Edilmiş</span>
             <% end %>

@@ -38,6 +38,7 @@
   cartCheck = setInterval(function () {
     if (idleTime > 45) {
       idleTime = -2000000;
+      show_loading();
       $.get('/home/reset_cart.js');
     }
     idleTime += 1;

@@ -6,7 +6,7 @@ class AccountActivitiesController < AdminController
   # GET /account_activities.json
   def index
     params[:q] ||= {}
-    if @current_account.cashier? && !@current_account.admin?
+    if (@current_account.cashier? or @current_account.second_admin?) && !@current_account.admin?
       params[:q][:admin_id_eq] = @current_account.id
       params[:q][:amount_gt]= 0
       params[:q][:created_at_gte] = 18.hours.ago

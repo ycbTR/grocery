@@ -11,6 +11,11 @@ class OrdersController < AdminController
   # GET /orders.json
   def index
     params[:q] ||= {}
+
+    if (@current_account.cashier? or @current_account.second_admin?) && !@current_account.admin?
+      params[:q][:completed_at_gteq] = 18.hours.ago
+    end
+
     unless params[:all]
       params[:q][:state_cont] ||= 'completed'
     end
@@ -75,7 +80,7 @@ class OrdersController < AdminController
         redirect_to root_path and return
       end
       # Admin can add expense to any account.
-      if (account.admin? or account.cashier?) && params[:account_id].present?
+      if (account.has_special_role?) && params[:account_id].present?
         admin_account = account
         account = Account.where(id: params[:account_id]).first
       end
@@ -115,7 +120,7 @@ class OrdersController < AdminController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    unless @current_account.admin?
+    unless @current_account.can_manage_order?
       @order = @current_account.orders.where(id: params[:id]).first
       redirect_to root_path and return if @order.blank?
     end

@@ -1,4 +1,5 @@
 class AccountsController < AdminController
+  before_action :authorize_only_admin!
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
   # GET /accounts
@@ -85,6 +86,6 @@ class AccountsController < AdminController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def account_params
-    params.require(:account).permit(:name, :card, :balance, :credit_limit, :admin, :cashier)
+    params.require(:account).permit(:name, :card, :balance, :credit_limit, :admin, :cashier, :second_admin)
   end
 end

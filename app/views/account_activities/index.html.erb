@@ -51,6 +51,8 @@ $(function(){
 })
 </script>
 <br>
+<%= link_to 'Geri', params[:back], class: 'btn btn-default d-block' if params[:back] %>
 <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
 Excel'e aktar
 <% end if @current_account.admin? %>
+

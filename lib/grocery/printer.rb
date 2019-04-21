@@ -37,16 +37,19 @@ TEXT
   end
 
 
-  def print_z_report(product_report, orders, total, balance_added, start_time, end_time)
+  def print_z_report(product_report, orders, total, balance_added, balance_refunded, start_time, end_time)
     val = "      Z RAPORU"
     val += "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
-    val += "\n\nÜrün|Adet|Tutar"
+    val += "\n******************\n"
+    val += "\nÜrün|Adet|Tutar\n"
     product_report.each do |name, h|
-      val += "\n#{name}|#{h[:count]}|#{h[:total]}TL"
+      val += "\n#{name.to_s}|#{h[:count]}|#{h[:total]}TL"
     end
+    val += "\n******************\n"
     val += "\n\nSipariş sayısı: #{orders.count}"
     val += "\nToplam: #{total.to_f}TL"
-    val += "\nYüklemeler: #{balance_added.to_f}TL"
+    val += "\nYükleme: #{balance_added.to_f}TL"
+    val += "\nİade sipariş: #{balance_refunded.to_f}TL"
     print(val)
   end
 end

@@ -71,6 +71,23 @@ class Order < ApplicationRecord
     li
   end
 
+  #  authorize 'admin'
+  #  authorize 'second_admin'
+  #  authorize 'cashier'
+  #  authorize! 'cashier'
+
+  def authorize(required_role)
+    self.send required_role.to_sym
+  end
+
+  def authorize!(required_role)
+        unless authorize(required_role)
+          raise Grocery::AccessDenied
+        end
+  end
+
+
+
   def order_display_text
     line_items.group(:product_id).count.collect do |pid, count|
       product = Product.find(pid)
