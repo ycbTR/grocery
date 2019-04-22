@@ -6,7 +6,7 @@ class AccountsController < AdminController
   # GET /accounts.json
   def index
     params[:q] ||= {}
-    params[:q][:s] ||= "name asc"
+    params[:q][:s] ||= "id desc"
     params[:q][:deleted_at_null] ||= "1"
     @q = Account.ransack(params[:q])
     if request.format.xls?
