@@ -1,17 +1,22 @@
 <div class="container" style="margin-top: 100px;">
 
-<div class="text-center">
-  <h1>  Kartınızı okutunuz </h1>
-  <hr>
-  <%= form_tag login_home_path, data: {method: :post}, class: 'autosubmit disable' do %>
-      <div class="readerPreview">
-        <%= image_tag 'rfid.png', width: 200 %>
-      </div>
+  <div class="text-center">
+    <h1>  Kartınızı okutunuz </h1>
+    <hr>
+    <%= form_tag login_home_path, data: {method: :post}, class: 'autosubmit disable' do %>
+    <div class="readerPreview">
+      <%= image_tag 'rfid.png', width: 200 %>
+    </div>
+    <% if params[:card].present? %>
+      <%= text_field_tag :card, params[:card], id: 'card' %>
+      <%= submit_tag 'Giriş' %>
+      <% else %>
       <%= hidden_field_tag :card, params[:card], id: 'card' %>
-  <% end %>
-  <%= link_to 'Vazgeç', root_path, class: 'btn btn-default' %>
-</div>
+      <% end %>
+      <% end %>
+      <%= link_to 'Vazgeç', root_path, class: 'btn btn-default' %>
+    </div>
 
-<%= render partial: '/shared/reader', locals: {auto_submit: true} %>
+    <%= render partial: '/shared/reader', locals: {auto_submit: true} %>
 
-</div>
+  </div>
