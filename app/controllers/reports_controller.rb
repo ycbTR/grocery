@@ -23,7 +23,7 @@ class ReportsController < AdminController
 
     @balance_added_relation = AccountActivity.add_balance.
         where("created_at BETWEEN ? AND ?", @start_time, @end_time).
-        where("amount > 0")
+        where("source_type = ?", "Account")
 
     @balance_added = @balance_added_relation.sum(:amount)
     @balance_added_ids = @balance_added_relation.pluck(:id)

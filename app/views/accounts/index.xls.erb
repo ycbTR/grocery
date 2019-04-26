@@ -45,7 +45,7 @@
           <Row>
             <Cell><Data ss:Type="Number"><%= account.id %></Data></Cell>
             <Cell><Data ss:Type="String"><%= account.name %></Data></Cell>
-            <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= account.balance %></Data></Cell>
+            <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= account.balance.to_f.round(2) %></Data></Cell>
             <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= account.credit_limit.to_f %></Data></Cell>
             <Cell><Data ss:Type="String"><%= yes_no account.admin %></Data></Cell>
             <Cell><Data ss:Type="String"><%= yes_no account.second_admin %></Data></Cell>
