@@ -42,7 +42,7 @@
   <tbody>
   <% @accounts.each do |account| %>
       <tr>
-        <td><%= account.name %></td>
+        <td><%= link_to account.name, account_details_home_path(id: account) %></td>
         <td><%= account.card %></td>
         <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f.round(2) %></td>
         <td>₺<%= account.credit_limit.to_f %></td>

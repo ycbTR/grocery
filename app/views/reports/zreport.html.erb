@@ -68,6 +68,16 @@
         <b>₺<%= @total.to_f.round(2) %></b>
       </td>
     </tr>
+
+    <tr>
+      <td colspan="2" class="text-right">
+        Ücretsiz satış
+      </td>
+      <td>
+        <b>₺<%= @total_free.to_f.round(2) %></b>
+      </td>
+    </tr>
+
     <tr>
       <td colspan="2" class="text-right">
         Yüklenen Bakiye
@@ -85,6 +95,7 @@
         <% end %>
       </td>
     </tr>
+
 
     <tr>
       <td colspan="2" class="text-right">

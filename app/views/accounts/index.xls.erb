@@ -40,6 +40,7 @@
         <Cell ss:StyleID="s63"><Data ss:Type="String">Yönetici</Data></Cell>
         <Cell ss:StyleID="s63"><Data ss:Type="String">Nöbetçi yönetici</Data></Cell>
         <Cell ss:StyleID="s63"><Data ss:Type="String">Bakiye Yükleyebilir</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Ücretsiz</Data></Cell>
       </Row>
       <% @accounts.each do |account| %>
           <Row>
@@ -50,6 +51,7 @@
             <Cell><Data ss:Type="String"><%= yes_no account.admin %></Data></Cell>
             <Cell><Data ss:Type="String"><%= yes_no account.second_admin %></Data></Cell>
             <Cell><Data ss:Type="String"><%= yes_no account.cashier %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= yes_no account.free %></Data></Cell>
           </Row>
       <% end %>
     </Table>
