@@ -65,27 +65,37 @@
         Toplam Sipariş Tutarı
       </td>
       <td>
-        <b>₺<%= @total.to_f %></b>
+        <b>₺<%= @total.to_f.round(2) %></b>
       </td>
     </tr>
+
+    <tr>
+      <td colspan="2" class="text-right">
+        Ücretsiz satış
+      </td>
+      <td>
+        <b>₺<%= @total_free.to_f.round(2) %></b>
+      </td>
+    </tr>
+
     <tr>
       <td colspan="2" class="text-right">
         Yüklenen Bakiye
       </td>
       <td>
-
         <% if @balance_added_ids.present? %>
             <b>
               <%= link_to account_activities_path(q: {id_in: @balance_added_ids}, back: url_for({:only_path => false}.merge(params.permit!))) do %>
-                  ₺<%= @balance_added.to_f %>
+                  ₺<%= @balance_added.to_f.round(2) %>
 
                   </b>
               <% end %>
         <% else %>
-            <b>₺<%= @balance_added.to_f %></b>
+            <b>₺<%= @balance_added.to_f.round(2) %></b>
         <% end %>
       </td>
     </tr>
+
 
     <tr>
       <td colspan="2" class="text-right">
@@ -95,12 +105,11 @@
         <% if @balance_added_with_cancel_ids.present? %>
             <b>
               <%= link_to account_activities_path(q: {id_in: @balance_added_with_cancel_ids}, back: url_for({:only_path => false}.merge(params.permit!))) do %>
-                  ₺<%= @balance_added_with_cancel.to_f %>
-
+                  ₺<%= @balance_added_with_cancel.to_f.round(2) %>
                   </b>
               <% end %>
         <% else %>
-            <b>₺<%= @balance_added_with_cancel.to_f %></b>
+            <b>₺<%= @balance_added_with_cancel.to_f.round(2) %></b>
         <% end %>
       </td>
     </tr>

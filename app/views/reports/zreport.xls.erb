@@ -65,7 +65,14 @@
       <Row>
         <Cell ss:StyleID="s63"><Data ss:Type="String">Toplam Sipariş Tutarı</Data></Cell>
         <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= @total.to_f %></Data></Cell>
-      </Row>  <Row>
+      </Row>
+
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Ücretsiz satış</Data></Cell>
+        <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= @total_free.to_f %></Data></Cell>
+      </Row>
+
+      <Row>
         <Cell ss:StyleID="s63"><Data ss:Type="String">Yüklenen Bakiye</Data></Cell>
         <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= @balance_added.to_f %></Data></Cell>
       </Row>

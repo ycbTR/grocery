@@ -30,3 +30,5 @@ Spring stop
 https://greatxam.wordpress.com/2009/01/05/xml-format-for-excel/
 
 https://github.com/yigitbacakoglu/rpi.rtc
+
+https://pimylifeup.com/raspberry-pi-rfid-rc522/

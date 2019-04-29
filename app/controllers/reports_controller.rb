@@ -14,7 +14,9 @@ class ReportsController < AdminController
     @end_time = params[:end].to_time
     #TODO Thinks utc time
     @orders = Order.completed.where("completed_at BETWEEN ? AND ?", @start_time, @end_time)
-    @total = @orders.sum(:total)
+
+    @total = @orders.where("account_id not in(?)", Account.free.pluck(:id)).sum(:total)
+    @total_free = @orders.where(account_id: Account.free.pluck(:id)).sum(:total)
     @line_items = LineItem.not_canceled.where(order_id: @orders.pluck(:id)).group(:product_id).pluck('sum(total) as total, count(*) as count_all, product_id')
     @product_report = {}
     @line_items.each do |li|
@@ -23,7 +25,7 @@ class ReportsController < AdminController
 
     @balance_added_relation = AccountActivity.add_balance.
         where("created_at BETWEEN ? AND ?", @start_time, @end_time).
-        where("amount > 0")
+        where("account_id NOT IN(?)", Account.free.pluck(:id))
 
     @balance_added = @balance_added_relation.sum(:amount)
     @balance_added_ids = @balance_added_relation.pluck(:id)
@@ -42,7 +44,7 @@ class ReportsController < AdminController
     end
 
     if params[:print]
-      Printer.print_z_report(@product_report, @orders, @total, @balance_added, @balance_added_with_cancel, @start_time, @end_time)
+      Printer.print_z_report(@product_report, @orders, @total ,@total_free, @balance_added, @balance_added_with_cancel, @start_time, @end_time)
     end
 
   end

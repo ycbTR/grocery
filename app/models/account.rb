@@ -11,6 +11,10 @@ class Account < ApplicationRecord
     where(deleted_at: nil)
   end
 
+  def self.free
+    where(free: true)
+  end
+
   def has_special_role?
     admin? or second_admin? or cashier?
   end
