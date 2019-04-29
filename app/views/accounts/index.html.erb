@@ -44,7 +44,7 @@
       <tr>
         <td><%= account.name %></td>
         <td><%= account.card %></td>
-        <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
+        <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f.round(2) %></td>
         <td>₺<%= account.credit_limit.to_f %></td>
         <td><%= yes_no account.admin %></td>
         <td><%= yes_no account.second_admin %></td>
