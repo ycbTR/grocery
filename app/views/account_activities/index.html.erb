@@ -6,7 +6,7 @@
   :class => 'btn btn-primary pull-right' %>
   <div class="clearfix"></div>
 </div>
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th colspan="5">
@@ -21,20 +21,20 @@
       </th>
     </tr>
     <tr>
-      <th><%= 'Kaynak' %></th>
-      <th><%= sort_link @q, :amount, model_class.human_attribute_name(:amount) %></th>
       <th>Hesap</th>
+      <th><%= sort_link @q, :amount, model_class.human_attribute_name(:amount) %></th>
       <th><%=sort_link @q, :created_at,  t(:created_at) %></th>
+      <th><%= 'Kaynak' %></th>
       <th><%= 'İşlemi yapan' %></th>
     </tr>
   </thead>
   <tbody>
     <% @account_activities.each do |account_activity| %>
     <tr>
-      <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source.respond_to?(:to_link) ? account_activity.source.to_link : account_activity.source)) rescue '' %></td>
-      <td class="<%= account_activity.amount.to_f > 0 ? 'success' : 'danger' %>">₺<%= account_activity.amount.to_f %></td>
       <td><%= account_activity.account.try(:name) %></td>
+      <td class="<%= account_activity.amount.to_f > 0 ? 'success' : 'danger' %>">₺<%= account_activity.amount.to_f %></td>
       <td><%= l account_activity.created_at %></td>
+      <td><%= link_to(account_activity.source.try(:name), url_for(account_activity.source.respond_to?(:to_link) ? account_activity.source.to_link : account_activity.source)) rescue '' %></td>
       <td><%= account_activity.admin.try(:name) || '-' %></td>
     </tr>
     <% end %>
@@ -55,4 +55,3 @@ $(function(){
 <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
 Excel'e aktar
 <% end if @current_account.admin? %>
-

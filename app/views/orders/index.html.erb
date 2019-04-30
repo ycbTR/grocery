@@ -6,12 +6,12 @@
 </div>
 
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th colspan="5">
         <%= search_form_for @q, class: 'form-inline' do |f| %>
-        <%= f.search_field :account_name_cont, placeholder: 'İsim', class: 'form-control' %>
+        <%= f.select :account_id_eq, options_for_select(Account.active.order(:name).pluck(:name, :id), selected: params[:q][:account_id_eq]), {include_blank: 'Hesap Seçiniz'}, class: 'form-control' %>
         <%= f.search_field :line_items_product_name_cont, placeholder: 'Ürün İsmi', class: 'form-control' %>
         <%= f.search_field :completed_at_cont, placeholder: 'Tarih',  value: (I18n.localize(@date) rescue ''), autocomplete: 'off', class: 'form-control datepicker' %>
         <%= f.select :state_cont, options_for_select([['Tümü', '-1'], ['Tamamlanmış', 'completed'], ['İptal', 'canceled']], selected: params[:q][:state_cont]),{}, class: 'form-control' %>
@@ -57,3 +57,7 @@
 <%= link_to url_for({:only_path => false, format: :xls}.merge(params.permit!)), target: '_blank' do %>
 Excel'e aktar
 <% end %>
+
+<br>
+
+Sayfa toplamı: ₺<%= @page_total.to_f.round(2) %>

@@ -14,7 +14,7 @@
         <% if params[:admin] %>
             <%= hidden_field_tag :admin, params[:admin] %>
             <p>Ödemenin çekileceği üye hesabını seçiniz ve kartınızı okutunuz.</p>
-            <%= select_tag :account_id, options_for_select(Account.pluck(:name, :id)), {prompt: 'Hesap Seçiniz', class: 'accountSelect'} %>
+            <%= select_tag :account_id, options_for_select(Account.active.order(:name).pluck(:name, :id)), {prompt: 'Hesap Seçiniz', class: 'accountSelect'} %>
         <% end %>
     <% end %>
     <%= link_to 'Vazgeç', root_path, class: 'btn btn-default marT20' %>
