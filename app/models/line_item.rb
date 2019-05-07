@@ -50,11 +50,11 @@ class LineItem < ApplicationRecord
   end
 
   def increase_units
-    self.product.update_column(:count_on_hand, self.product.count_on_hand.to_f + 1)
+    self.product.update_column(:count_on_hand, self.product.count_on_hand.to_f + self.quantity)
   end
 
   def decrease_units
-    self.product.update_column(:count_on_hand, self.product.count_on_hand.to_f - 1)
+    self.product.update_column(:count_on_hand, self.product.count_on_hand.to_f - self.quantity)
   end
 
 end

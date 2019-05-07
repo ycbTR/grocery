@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_29_174054) do
+ActiveRecord::Schema.define(version: 2019_05_07_171715) do
 
   create_table "account_activities", force: :cascade do |t|
     t.integer "order_id"
@@ -99,6 +99,15 @@ ActiveRecord::Schema.define(version: 2019_04_29_174054) do
     t.index ["active", "count_on_hand"], name: "pi_2"
     t.index ["deleted_at"], name: "pr_i_2"
     t.index ["name"], name: "pr_i_1"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "report_type"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.integer "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stocks", force: :cascade do |t|
