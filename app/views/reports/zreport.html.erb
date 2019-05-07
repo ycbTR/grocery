@@ -6,9 +6,17 @@
       <th colspan="3" class="text-right">
         <%= link_to url_for({:only_path => false, print: true}.merge(params.permit!)),
                     :data => {:confirm => 'Yazdırılacak, onaylıyor musunuz?'},
-                    :class => 'btn btn-xs info pull-left' do %>
-            <i class="fa fa-print"></i>
+                    :class => 'btn btn-xs btn-info pull-left' do %>
+            <i class="fa fa-print"></i> Yazdır
         <% end %>
+
+        <%= link_to url_for({:only_path => false, print: true, persist: true}.merge(params.permit!)),
+                    :data => {:confirm => 'Yazdırılacak, onaylıyor musunuz?'},
+                    :class => 'btn btn-xs btn-warning pull-left' do %>
+            <i class="fa fa-print"></i> Gün Sonu Al
+        <% end if params[:start].blank? %>
+
+
 
         <%= form_tag zreport_reports_path, method: :get, class: 'form-inline' do %>
             <div class="form-group" style="position: relative;">
@@ -16,7 +24,8 @@
               <%= text_field_tag :end, params[:end], placeholder: 'Bitiş zamanı 2019-01-01 00:00', class: "datetimepicker datetimepicker2 form-control", autocomplete: 'off' %>
             </div>
             <%= submit_tag 'Getir', class: 'btn btn-default' %>
-            <%= link_to 'Bugün', zreport_reports_path, class: 'btn btn-default' %>
+            <%= link_to 'Güncel Rapor', zreport_reports_path, class: 'btn btn-info' %>
+
         <% end %>
       </th>
     </tr>
@@ -65,27 +74,37 @@
         Toplam Sipariş Tutarı
       </td>
       <td>
-        <b>₺<%= @total.to_f %></b>
+        <b>₺<%= @total.to_f.round(2) %></b>
       </td>
     </tr>
+
+    <tr>
+      <td colspan="2" class="text-right">
+        Ücretsiz satış
+      </td>
+      <td>
+        <b>₺<%= @total_free.to_f.round(2) %></b>
+      </td>
+    </tr>
+
     <tr>
       <td colspan="2" class="text-right">
         Yüklenen Bakiye
       </td>
       <td>
-
         <% if @balance_added_ids.present? %>
             <b>
               <%= link_to account_activities_path(q: {id_in: @balance_added_ids}, back: url_for({:only_path => false}.merge(params.permit!))) do %>
-                  ₺<%= @balance_added.to_f %>
+                  ₺<%= @balance_added.to_f.round(2) %>
 
                   </b>
               <% end %>
         <% else %>
-            <b>₺<%= @balance_added.to_f %></b>
+            <b>₺<%= @balance_added.to_f.round(2) %></b>
         <% end %>
       </td>
     </tr>
+
 
     <tr>
       <td colspan="2" class="text-right">
@@ -95,12 +114,11 @@
         <% if @balance_added_with_cancel_ids.present? %>
             <b>
               <%= link_to account_activities_path(q: {id_in: @balance_added_with_cancel_ids}, back: url_for({:only_path => false}.merge(params.permit!))) do %>
-                  ₺<%= @balance_added_with_cancel.to_f %>
-
+                  ₺<%= @balance_added_with_cancel.to_f.round(2) %>
                   </b>
               <% end %>
         <% else %>
-            <b>₺<%= @balance_added_with_cancel.to_f %></b>
+            <b>₺<%= @balance_added_with_cancel.to_f.round(2) %></b>
         <% end %>
       </td>
     </tr>
@@ -111,4 +129,8 @@
       Excel'e aktar
   <% end %>
 
+  <br>
+  <% if Report.present? %>
+      <small>Son rapor <b><%= l Report.last.try(:ends_at) %></b>'de alındı</small>
+  <% end %>
 </div>

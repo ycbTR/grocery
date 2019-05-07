@@ -48,6 +48,15 @@
       </div>
     </div>
     <div class="form-group">
+      <%= f.label :free, "Ücretsiz satış", :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.check_box :free, :class => '' %>
+        <%= f.error_span(:free) %>
+        <span> (Raporlarda ücretsiz satış olarak gözükür - bakiye yüklemeleri raporlara yansımaz) </span>
+      </div>
+    </div>
+
+    <div class="form-group">
       <%= f.label :admin, "Yönetici", :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
         <%= f.check_box :admin, :class => '' %>

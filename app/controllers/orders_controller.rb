@@ -39,13 +39,14 @@ class OrdersController < AdminController
       @orders = @q.result(distinct: true).order(:completed_at => :desc)
     else
       @orders = @q.result(distinct: true).page(params[:page]).order(:completed_at => :desc)
+      @page_total = @orders.sum(:total)
     end
   end
 
   def populate
     @order = current_order
     li = @order.add_to_order(params[:product_id])
-    if li.product.count_on_hand <= @order.line_items.where(product_id: params[:product_id]).count
+    if li.product.count_on_hand <= @order.line_items.where(product_id: params[:product_id]).sum(:quantity)
       @li = li
     end
   end

@@ -6,7 +6,7 @@ class AccountsController < AdminController
   # GET /accounts.json
   def index
     params[:q] ||= {}
-    params[:q][:s] ||= "name asc"
+    params[:q][:s] ||= "id desc"
     params[:q][:deleted_at_null] ||= "1"
     @q = Account.ransack(params[:q])
     if request.format.xls?
@@ -86,6 +86,6 @@ class AccountsController < AdminController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def account_params
-    params.require(:account).permit(:name, :card, :balance, :credit_limit, :admin, :cashier, :second_admin)
+    params.require(:account).permit(:name, :card, :balance, :credit_limit, :admin, :cashier, :second_admin, :free)
   end
 end

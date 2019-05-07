@@ -6,7 +6,7 @@
               :class => 'btn btn-primary' %>
   <div class="clearfix"></div>
 </div>
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
   <th colspan="7">
     <%= search_form_for @q, class: 'form-inline' do |f| %>
@@ -35,16 +35,16 @@
     <th><%= sort_link @q, :admin, model_class.human_attribute_name(:admin) %></th>
     <th><%= sort_link @q, :second_admin, "Nöbetçi yönetici" %></th>
     <th><%= sort_link @q, :cashier, 'Bakiye yükleyebilir' %></th>
-    <th><%= t :created_at %></th>
+    <th><%= sort_link @q, :created_at, t(:created_at) %></th>
     <th><%= t '.actions', :default => t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
   <% @accounts.each do |account| %>
       <tr>
-        <td><%= account.name %></td>
+        <td><%= link_to account.name, account_details_home_path(id: account) %></td>
         <td><%= account.card %></td>
-        <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f %></td>
+        <td class="<%= account.balance.to_f > 0 ? 'success' : 'danger' %>">₺<%= account.balance.to_f.round(2) %></td>
         <td>₺<%= account.credit_limit.to_f %></td>
         <td><%= yes_no account.admin %></td>
         <td><%= yes_no account.second_admin %></td>

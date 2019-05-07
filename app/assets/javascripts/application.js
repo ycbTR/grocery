@@ -23,7 +23,6 @@
 //= require_tree .
 
 
-
 $.fn.datepicker.dates['tr'] = {
     days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
     daysShort: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cts"],
@@ -218,4 +217,9 @@ $('table.sortable').ready(function () {
                 });
             }
         });
+});
+
+
+$(document).on('change', '.quantity-select', function () {
+    $(this).parent('form').submit();
 });

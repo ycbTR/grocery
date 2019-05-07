@@ -70,21 +70,21 @@
     <div class="navbar-collapse collapse navbar-right">
       <ul class="nav navbar-nav">
         <% if @current_account %>
-
             <% if @current_account.admin? %>
+            <li><%= link_to "Bakiye Yükle", new_account_activity_path %></li>
                 <li><%= link_to "Hesaplar", accounts_path %></li>
                 <li><%= link_to "Bakiye Hareketleri", account_activities_path %></li>
                 <li><%= link_to "Siparişler", orders_path %></li>
                 <li><%= link_to "Ürünler", products_path %></li>
                 <li><%= link_to "Z Raporu", zreport_reports_path %></li>
             <% elsif @current_account.second_admin? %>
+            <li><%= link_to "Bakiye Yükle", new_account_activity_path %></li>
                 <li><%= link_to "Bakiye Hareketleri", account_activities_path %></li>
                 <li><%= link_to "Siparişler", orders_path %></li>
-                <li><%= link_to "Bakiye Yükle", new_account_activity_path %></li>
                 <li><%= link_to "Z Raporu", zreport_reports_path %></li>
             <% elsif @current_account.cashier? %>
+            <li><%= link_to "Bakiye Yükle", new_account_activity_path %></li>
                 <li><%= link_to "Bakiye İşlemlerin", account_activities_path %></li>
-                <li><%= link_to "Bakiye Yükle", new_account_activity_path %></li>
             <% end %>
 
             <li><%= link_to "#{@current_account.name} (Hesabım)", account_details_home_path %></li>
