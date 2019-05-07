@@ -17,7 +17,7 @@ class ReportsController < AdminController
 
     @total = @orders.where("account_id not in(?)", Account.free.pluck(:id)).sum(:total)
     @total_free = @orders.where(account_id: Account.free.pluck(:id)).sum(:total)
-    @line_items = LineItem.not_canceled.where(order_id: @orders.pluck(:id)).group(:product_id).pluck('sum(total) as total, count(*) as count_all, product_id')
+    @line_items = LineItem.not_canceled.where(order_id: @orders.pluck(:id)).group(:product_id).pluck('sum(total) as total, sum(quantity) as count_all, product_id')
     @product_report = {}
     @line_items.each do |li|
       @product_report[Product.where(id: li[2]).pluck(:name).first] = {count: li[1], total: li[0]}

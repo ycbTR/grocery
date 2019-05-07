@@ -87,16 +87,15 @@ class Order < ApplicationRecord
   end
 
 
-
   def order_display_text
-    line_items.group(:product_id).count.collect do |pid, count|
+    line_items.group(:product_id).pluck('sum(quantity) as quantity, product_id').collect do |quantity, pid |
       product = Product.find(pid)
-      "#{count} #{product.name}"
+      "#{quantity} #{product.name}"
     end.to_sentence
   end
 
   def grouped_items
-    line_items.not_canceled.group(:product_id).pluck('sum(total), count(*), product_id').collect do |li|
+    line_items.not_canceled.group(:product_id).pluck('sum(total), sum(quantity), product_id').collect do |li|
       {name: Product.where(id: li[2]).pluck(:name).first, count: li[1], total: li[0]}
     end
   end
