@@ -1,4 +1,5 @@
 class LineItemsController < AdminController
+  skip_before_action :authorize_admin!, only: [:update]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy, :cancel]
 
   # GET /line_items
@@ -41,12 +42,18 @@ class LineItemsController < AdminController
   # PATCH/PUT /line_items/1.json
   def update
     respond_to do |format|
+      @order = current_order
       if @line_item.update(line_item_params)
+        @order.reload
+        if @line_item.product.count_on_hand <= @order.line_items.where(product_id: @line_item.product_id).sum(:quantity)
+          @li = @line_item
+        else
+          @product_ids_to_show = [@line_item.product_id]
+        end
         format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @line_item }
+        format.js {  }
       else
-        format.html { render :edit }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        format.js {  }
       end
     end
   end
@@ -78,6 +85,6 @@ class LineItemsController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
-      params.require(:line_item).permit(:order_id, :pquantity, :price, :total, :product_id)
+      params.require(:line_item).permit(:order_id, :quantity, :price, :total, :product_id)
     end
 end

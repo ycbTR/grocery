@@ -2,22 +2,23 @@ class ReportsController < AdminController
   skip_before_action :authorize_admin!
   before_action :authorize_admin_second_admin!
 
-  before_action :set_times
+  # before_action :set_times
 
   def index
 
   end
 
   def zreport
-    @start_time = params[:start].to_time
+    @start_time = params[:start].to_time if params[:start]
+    @end_time = params[:end].to_time if params[:end]
 
-    @end_time = params[:end].to_time
-    #TODO Thinks utc time
+    @end_time ||= Time.now
+    @start_time ||= Report.last.try(:ends_at) || Time.now.beginning_of_day
+
     @orders = Order.completed.where("completed_at BETWEEN ? AND ?", @start_time, @end_time)
-
     @total = @orders.where("account_id not in(?)", Account.free.pluck(:id)).sum(:total)
     @total_free = @orders.where(account_id: Account.free.pluck(:id)).sum(:total)
-    @line_items = LineItem.not_canceled.where(order_id: @orders.pluck(:id)).group(:product_id).pluck('sum(total) as total, count(*) as count_all, product_id')
+    @line_items = LineItem.not_canceled.where(order_id: @orders.pluck(:id)).group(:product_id).pluck('sum(total) as total, sum(quantity) as count_all, product_id')
     @product_report = {}
     @line_items.each do |li|
       @product_report[Product.where(id: li[2]).pluck(:name).first] = {count: li[1], total: li[0]}
@@ -44,9 +45,10 @@ class ReportsController < AdminController
     end
 
     if params[:print]
-      Printer.print_z_report(@product_report, @orders, @total ,@total_free, @balance_added, @balance_added_with_cancel, @start_time, @end_time)
+      Report.create(:ends_at => @end_time, starts_at: @start_time, report_type: 'zreport', account_id: @current_account.try(:id)) if params[:persist]
+      Printer.print_z_report(@product_report, @orders, @total, @total_free, @balance_added, @balance_added_with_cancel, @start_time, @end_time)
+      redirect_to zreport_reports_path
     end
-
   end
 
   private
