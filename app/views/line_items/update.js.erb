@@ -1,0 +1,12 @@
+$("#cartArea").replaceWith("<%= j render partial: 'orders/cart', formats: [:html], handlers: [:erb] %>");
+
+
+<% if @li %>
+$("#product_<%= @li.product_id %>").hide();
+<% elsif @product_ids_to_show %>
+<% @product_ids_to_show.each do |pid| %>
+$("#product_<%= pid %>").show();
+<% end %>
+<% end %>
+
+setTimeout(hide_loading, 500);
