@@ -39,7 +39,7 @@ class OrdersController < AdminController
       @orders = @q.result(distinct: true).order(:completed_at => :desc)
     else
       @orders = @q.result(distinct: true).page(params[:page]).order(:completed_at => :desc)
-      @page_total = @orders.sum(:total)
+      @page_total = Order.where(id: @orders.pluck(:id)).sum(&:total)
     end
   end
 

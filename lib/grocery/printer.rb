@@ -30,7 +30,7 @@ module Printer
 #{item_text}
 Toplam: #{ order.total }TL
 #{order.account.try(:name)}
-Bakiye: #{order.account.balance.to_f}TL
+Bakiye: #{order.account.balance.to_f.round(2)}TL
 #{order.completed_at.strftime("%d/%m %H:%M")} #{order.printed_count}:#{order.id}
 TEXT
     val

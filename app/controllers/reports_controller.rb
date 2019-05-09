@@ -16,12 +16,12 @@ class ReportsController < AdminController
     @start_time ||= Report.last.try(:ends_at) || Time.now.beginning_of_day
 
     @orders = Order.completed.where("completed_at BETWEEN ? AND ?", @start_time, @end_time)
-    @total = @orders.where("account_id not in(?)", Account.free.pluck(:id)).sum(:total)
-    @total_free = @orders.where(account_id: Account.free.pluck(:id)).sum(:total)
+    @total = @orders.where("account_id not in(?)", Account.free.pluck(:id)).sum(:total).round(2)
+    @total_free = @orders.where(account_id: Account.free.pluck(:id)).sum(:total).round(2)
     @line_items = LineItem.not_canceled.where(order_id: @orders.pluck(:id)).group(:product_id).pluck('sum(total) as total, sum(quantity) as count_all, product_id')
     @product_report = {}
     @line_items.each do |li|
-      @product_report[Product.where(id: li[2]).pluck(:name).first] = {count: li[1], total: li[0]}
+      @product_report[Product.where(id: li[2]).pluck(:name).first] = {count: li[1], total: li[0].round(2)}
     end
 
     @balance_added_relation = AccountActivity.add_balance.
