@@ -130,7 +130,7 @@
   <% end %>
 
   <br>
-  <% if Report.present? %>
+  <% if Report.last.present? %>
       <small>Son rapor <b><%= l Report.last.try(:ends_at) %></b>'de alındı</small>
   <% end %>
 </div>
