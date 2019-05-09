@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  report_type: MyString
+  starts_at: 2019-05-07 20:17:15
+  ends_at: 2019-05-07 20:17:15
+  account_id: 1
+
+two:
+  report_type: MyString
+  starts_at: 2019-05-07 20:17:15
+  ends_at: 2019-05-07 20:17:15
+  account_id: 1
