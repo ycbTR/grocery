@@ -99,7 +99,7 @@ class OrdersController < AdminController
             @order.after_complete
           end
           session[:order_id] = nil
-          flash[:success] = "#{account.name} ₺#{@order.total} Ödeme alındı. Kalan bakiyeniz: ₺ #{account.balance}"
+          flash[:success] = "#{account.name} ₺#{@order.total} Ödeme alındı. Kalan bakiyeniz: ₺ #{account.balance.to_f.round(2)}"
           redirect_to root_path
         rescue Exception => e
           # Stop listener
@@ -109,7 +109,7 @@ class OrdersController < AdminController
           #stop listener
         end
       else
-        flash[:error] = "Bakiye yetersiz. Bakiyeniz: ₺ #{account.try(:balance)}"
+        flash[:error] = "Bakiye yetersiz. Bakiyeniz: ₺ #{account.try(:balance).to_f.round(2)}"
         redirect_to root_path
         # Stop listener
       end
