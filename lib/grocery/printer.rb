@@ -37,13 +37,13 @@ TEXT
   end
 
   def print_detail_z_report(product_report, orders, total, total_free, balance_added, balance_refunded, start_time, end_time)
-    val = "      Z RAPORU"
+    val = "   DETAY RAPORU"
     val += "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
     val += "\n******************\n"
-    val += "\nÜrün|Adet|Tutar\n"
+    val += "\nÜrün|Adet\n"
 
     product_report.each do |username, h|
-      val += "\n#{name.to_s}"
+      val += "\n*#{username.to_s}"
       h.each do |k,v|
         val += "\n  #{k.to_s}|#{v}"
       end
