@@ -129,6 +129,8 @@
       Excel'e aktar
   <% end %>
 
+  <%= link_to 'Detaylı Alışveriş Raporu', detailed_z_report_reports_path, class: 'btn btn-info btn-xs' %>
+
   <br>
   <% if Report.last.present? %>
       <small>Son rapor <b><%= l Report.last.try(:ends_at) %></b>'de alındı</small>

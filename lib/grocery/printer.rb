@@ -36,6 +36,27 @@ TEXT
     val
   end
 
+  def print_detail_z_report(product_report, orders, total, total_free, balance_added, balance_refunded, start_time, end_time)
+    val = "      Z RAPORU"
+    val += "\n#{start_time.strftime("%d/%m/%Y %H:%M")}\n#{end_time.strftime("%d/%m/%Y %H:%M")}"
+    val += "\n******************\n"
+    val += "\nÜrün|Adet|Tutar\n"
+
+    product_report.each do |username, h|
+      val += "\n#{name.to_s}"
+      h.each do |k,v|
+        val += "\n  #{k.to_s}|#{v}"
+      end
+    end
+
+    val += "\n\n******************\n"
+    val += "\nSipariş ad.: #{orders.count}"
+    val += "\nToplam: #{total.to_f}TL"
+    val += "\nYükleme: #{balance_added.to_f}TL"
+    val += "\nÜcretsiz satış: #{total_free.to_f}TL"
+    val += "\nİade sipariş: #{balance_refunded.to_f}TL"
+    print(val)
+  end
 
   def print_z_report(product_report, orders, total, total_free, balance_added, balance_refunded, start_time, end_time)
     val = "      Z RAPORU"

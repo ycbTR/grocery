@@ -21,7 +21,9 @@ Rails.application.routes.draw do
 
   resources :reports do
     collection do
+      get :detailed_z_report
       get :zreport
+
     end
   end
 

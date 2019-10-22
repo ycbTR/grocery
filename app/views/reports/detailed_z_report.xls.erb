@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+
+
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom"/>
+      <Borders/>
+      <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+      ss:Color="#000000"/>
+      <Interior/>
+      <NumberFormat/>
+      <Protection/>
+    </Style>
+    <Style ss:ID="s62">
+      <Interior ss:Color="#FCF305" ss:Pattern="Solid"/>
+    </Style>
+    <Style ss:ID="s63">
+      <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="12"
+      ss:Color="#000000" ss:Bold="1"/>
+    </Style>
+    <Style ss:ID="s64">
+      <NumberFormat ss:Format="#,##0.00\ &quot;TRY&quot;;[Red]-#,##0.00\ &quot;TRY&quot;"/>
+    </Style>
+    <Style ss:ID="s65">
+      <NumberFormat ss:Format="Short Date"/>
+    </Style>
+  </Styles>
+
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Z Raporu</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"><%= l @start_time %> - <%= l @end_time %> saatleri arası</Data></Cell>
+      </Row>
+      <Row>
+      </Row>
+
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Ürün</Data></Cell>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Adet</Data></Cell>
+      </Row>
+
+      <% @report.each do |username, h| %>
+          <Row>
+            <Cell ss:StyleID="s63"><Data ss:Type="String"><%= username %></Data></Cell>
+          </Row>
+            <% h.each do |k,v| %>
+            <Row>
+            <Cell><Data ss:Type="String"><%= k %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= v %></Data></Cell>
+          </Row>
+            <% end %>
+      <% end %>
+      <Row>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Sipariş Sayısı</Data></Cell>
+        <Cell><Data ss:Type="Number"><%= @orders.count %></Data></Cell>
+      </Row>
+
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Toplam Sipariş Tutarı</Data></Cell>
+        <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= @total.to_f %></Data></Cell>
+      </Row>
+
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Ücretsiz satış</Data></Cell>
+        <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= @total_free.to_f %></Data></Cell>
+      </Row>
+
+      <Row>
+        <Cell ss:StyleID="s63"><Data ss:Type="String">Yüklenen Bakiye</Data></Cell>
+        <Cell ss:StyleID="s64"><Data ss:Type="Number"><%= @balance_added.to_f %></Data></Cell>
+      </Row>
+
+    </Table>
+  </Worksheet>
+</Workbook>
